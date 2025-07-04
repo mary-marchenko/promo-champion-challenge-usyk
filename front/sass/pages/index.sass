@@ -1,0 +1,749 @@
+@import "../var"
+
+.hide
+  display: none !important
+
+body.light
+  background: $blue
+
+body
+  overscroll-behavior: none
+  -webkit-tap-highlight-color: transparent
+  background: $blue
+  img
+    max-width: 100%
+    height: auto
+  & > *
+    font-family: inherit
+
+// loader
+.spinner-overlay
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100vh
+  background-color: $white
+  display: flex
+  justify-content: center
+  align-items: center
+  z-index: 8
+
+.spinner
+  width: 60px
+  height: 60px
+  background: url("../img/loader.svg") no-repeat 0 0/contain
+  animation: scale .7s alternate infinite
+
+.fav-page.loading
+  max-height: 90vh
+  overflow: hidden
+
+.fav-page
+  background: $blue
+  display: flex
+  flex-direction: column
+  align-items: center
+  overflow: hidden
+  .btn
+    min-width: 360px
+    display: flex
+    justify-content: center
+    align-items: center
+    height: 68px
+    padding: 2px 10px 4px 10px
+    width: max-content
+    background: url('../img/bnt-bg-desk.jpg') no-repeat 50% 50%/cover
+    transition: background .4s ease-in-out
+    cursor: pointer
+    background-size: 100% 100%
+    font-size: 28px
+    color: $white
+    text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.40)
+    font-family: $font-favbet-display-bold
+    letter-spacing: 1.12px
+    text-transform: uppercase
+    z-index: 5
+    &._lock
+      pointer-events: none
+      filter: contrast(0.6)
+    &:hover
+      cursor: pointer
+      background: url('../img/bnt-bg-desk-hover.jpg') no-repeat 50% 50%/cover
+      background-size: 100% 100%
+  .wrapp
+    width: 1600px
+    margin: 0 auto
+    display: flex
+    flex-direction: column
+    align-items: flex-end
+    position: relative
+    height: auto
+  .welcome
+    position: relative
+    width: 100%
+    background: url('../img/welcome/welcome-bg.jpg') no-repeat center top
+    background-size: auto 902px
+    margin-bottom: 60px
+    &__title
+      display: flex
+      flex-direction: column
+      align-items: center
+      width: 520px
+      margin-bottom: 35px
+      margin-left: -35px
+      &-top
+        opacity: 0
+        transform: translateX(-100px)
+        animation: fromLeft 1s ease-out forwards
+      &-bottom
+        width: 245px
+        opacity: 0
+        transform: translateX(50px)
+        animation: fromRight 1s ease-out forwards
+    &:after
+      content: ""
+      position: absolute
+      width: 100%
+      height: 200px
+      left: 0
+      top: 703px
+      background: linear-gradient(0deg, #01013E 0%, rgba(1, 1, 62, 0.00) 100%)
+    .wrapp
+      background: url('../img/welcome/welcome-desk.jpg') no-repeat center top
+      background-size: auto 902px
+    &__block
+      margin-top: 94px
+      margin-right: 250px
+      padding-left: 35px
+      width: 520px
+      display: flex
+      flex-direction: column
+      align-items: flex-start
+    &__prize
+      display: flex
+      flex-direction: column
+      align-items: flex-start
+      &-top
+        font-family: $font-favbet-display-medium
+        font-size: 32px
+        color: $white
+      &-center
+        font-family: $font-2-quadro-tight-regular
+        color: $white
+        font-size: 160px
+        letter-spacing: 1.6px
+        display: flex
+        span
+          margin-left: 5px
+          font-family: $font-2-quadro-tight-regular
+          color: $white
+          font-size: 42px
+          line-height: 87px
+      &-bottom
+        font-family: $font-favbet-display-medium
+        font-size: 18px
+        color: $white
+        letter-spacing: 0.36px
+        margin-bottom: 35px
+    .drop
+      margin-top: 40px
+      margin-bottom: 71px
+  .drop
+    max-width: 360px
+    width: 100%
+    position: relative
+    z-index: 5
+    & > *
+      font-family: inherit
+      color: $white
+    &.bottom
+      margin-bottom: 50px
+    &__bottom-text
+      color: rgba(255, 255, 255, 0.90)
+      font-size: 9px
+      line-height: 12px
+      font-family: $font-suisse-intl-reg
+      opacity: .9
+      text-align: center
+      margin: 15px 0 40px 0
+    .dropdown[open] summary::before
+      transform:  rotate(180deg)
+      margin-top: -10px
+    summary
+      list-style: none
+      padding: 12px 30px 12px
+      height: 62px
+      font-family: $font-favbet-display-bold
+      font-size: 32px
+      line-height: 27px
+      cursor: pointer
+      display: flex
+      align-items: center
+      justify-content: flex-start
+      color: $white
+      text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.40)
+      letter-spacing: 1.28px
+      user-select: none
+      background: url('../img/drop-bg-desk.png') no-repeat 50% 50%/cover
+      @media screen and (max-width: 600px)
+        font-size: 14px
+        line-height: 22px
+      &::before
+        content: ""
+        display: block
+        min-width: 22px
+        height: 22px
+        background: url("../img/arrow.png") no-repeat 0 0/contain
+        order: 2
+        margin-left: auto
+        margin-top: 10px
+    summary::-webkit-details-marker
+      display: none
+    > summary
+      list-style: none
+    &-txt
+      width: 560px
+      min-height: 433px
+      background: url('../img/drop-txt-bg.png') no-repeat 50% 50%/cover
+      background-color: $blue-dropp
+      padding: 30px 30px 36px
+      max-height: 350px
+      overflow-y: auto
+      scrollbar-width: auto
+      cursor: auto
+      &::-webkit-scrollbar-thumb
+        background: $green
+        width: 3px
+        border-radius: 3px
+      &::-webkit-scrollbar
+        background: $white
+        width: 3px
+      .center
+        text-align: center
+        margin: 0 auto
+      &-list
+        display: flex
+        flex-direction: column
+        gap: 15px
+        p, strong
+          font-size: 20px
+          line-height: 26px
+          font-family: $font-suisse-intl-reg
+          color: $white
+          @media screen and (max-width: 600px)
+            font-size: 14px
+            line-height: 22px
+        *, p, h2, h3, h4, h5, h6, strong, span
+          font-family: $font-suisse-intl-reg
+          font-size: 14px
+          line-height: 22px
+          color: $white
+          margin-bottom: 10px
+        span
+          color: $green-light
+          display: contents
+        tr,td
+          font-family: $font-suisse-intl-reg
+          color: $white
+          width: 50%
+        td
+          padding-left: 5px
+      strong
+        font-family: $font-suisse-intl-bold
+        color: $white
+        display: block
+    .retreat1
+      padding-left: 20px
+    .retreat2
+      padding-left: 30px
+    .circle
+      padding-left: 20px
+      &:before
+        content: ''
+        width: 4px
+        height: 4px
+        background: $white
+        border-radius: 50%
+        display: inline-block
+        margin: 0 5px 3px 0
+  .predict
+    width: 100%
+    position: relative
+    background: url('../img/predict/predict-bg.jpg') no-repeat center top
+    background-size: auto 772px
+    &:before
+      z-index: 2
+      content: ""
+      position: absolute
+      width: 100%
+      height: 200px
+      left: 0
+      top: -1px
+      background: linear-gradient(180deg, #01013E 0%, rgba(1, 1, 62, 0.00) 100%)
+    &:after
+      content: ''
+      position: absolute
+      bottom: 29px
+      left: 0
+      width: 100%
+      height: 200px
+      background: linear-gradient(0deg, #01013E 0%, rgba(1, 1, 62, 0.00) 100%)
+    .wrapp
+      margin-bottom: 30px
+      position: relative
+      overflow: hidden
+      align-items: center
+      background: url('../img/predict/predict-desk.jpg') no-repeat center top
+      background-size: auto 780px
+      @media screen and (max-width: 1050px)
+        background: url('../img/predict/predict-tab.jpg') no-repeat center top
+      @media screen and (max-width: 600px)
+        background: url('../img/predict/predict-mob.jpg') no-repeat center top
+      &__cont
+          margin-top: 70px
+          margin-bottom: 95px
+          width: 1255px
+          display: flex
+          flex-direction: column
+    &__content
+      width: 100%
+      display: flex
+      z-index: 3
+      justify-content: space-between
+    &__top
+      position: relative
+      z-index: 2
+      display: flex
+      flex-direction: column
+      justify-content: flex-start
+    &__title
+      font-family: $font-favbet-display-normbold
+      font-size: 70px
+      line-height: 70px
+      color: $white
+      letter-spacing: 0.7px
+      margin-bottom: 10px
+    &__info
+      font-family: $font-favbet-display-medium
+      font-size: 24px
+      line-height: 24px
+      letter-spacing: 0.48px
+      color: $white
+    &__left
+      z-index: 3
+      margin-top: 40px
+      &-container
+        position: relative
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: space-between
+        &:nth-child(1)
+          width: 508px
+          height: 203px
+          background: url('../img/predict/forecast-bg-desk.png') no-repeat 100% 0/contain
+          @media screen and (max-width: 1050px)
+            background: url('../img/predict/forecast-bg-tab.png') no-repeat 100% 0/contain
+          margin-bottom: 90px
+        &:nth-child(2)
+          background: url('../img/predict/last-forec-bg-desk.jpg') no-repeat 100% 0/cover
+          background-size: 100% 100%
+          @media screen and (max-width: 1050px)
+            background: url('../img/predict/last-forec-bg-tab.jpg') no-repeat 50% 50%/cover
+          @media screen and (max-width: 600px)
+            background: url('../img/predict/last-forec-bg-mob.jpg') no-repeat 50% 50%/cover
+      &-title
+        font-family: $font-favbet-display-medium
+        font-size: 24px
+        color: $magenta
+        letter-spacing: 0.24px
+        margin-top: 30px
+        position: relative
+        padding: 0 1rem
+        margin-bottom: 15px
+        &:before
+          content: ''
+          position: absolute
+          width: 105px
+          height: 2px
+          left: 0
+          transform: translateX(-100%) translateY(-50%)
+          top: 49%
+          background: url('../img/predict/red-line-l.png') no-repeat 50% 50%/cover
+          animation: pulseOpacity 1.2s ease-in-out infinite alternate
+        &:after
+          content: ''
+          position: absolute
+          width: 105px
+          height: 2px
+          right: 0
+          transform: translateX(100%) translateY(-50%)
+          top: 49%
+          background: url('../img/predict/red-line-r.png') no-repeat 50% 50%/cover
+          animation: pulseOpacity 1.2s ease-in-out infinite alternate
+      &-block
+        display: flex
+        align-items: center
+        margin-bottom: 30px
+      .btn
+        width: 100%
+        position: absolute
+        bottom: -65px
+      &-last
+        display: flex
+        margin-bottom: 15px
+      &-fighter
+        font-family: $font-favbet-display-medium
+        color: $white
+        font-size: 24px
+        letter-spacing: 0.24px
+      &-counter
+        width: 23px
+        margin: 0 20px
+        text-align: center
+        font-family: $font-2-quadro-tight-regular
+        font-size: 40px
+        text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.60)
+        color: $white
+      .judges
+        width: max-content
+        font-family: $font-favbet-display-medium
+        color: $white
+        font-size: 24px
+        line-height: 30px
+      &-result
+        font-family: $font-suisse-intl-semiBold
+        font-size: 14px
+        letter-spacing: 0.28px
+        text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.25)
+        padding-bottom: 30px
+        &.confirmed
+          color: $green
+        &.unconfirmed
+          color: $yellow
+    &__minus,
+      &__plus
+        width: 80px
+        height: 68px
+    &__plus
+      background: url('../img/plus.jpg') no-repeat 50% 50%/cover
+      &:active,
+        &:hover
+          background: url('../img/plus-active.jpg') no-repeat 50% 50%/cover
+    &__minus
+      background: url('../img/minus.jpg') no-repeat 50% 50%/cover
+      &:hover
+        background: url('../img/minus-active.jpg') no-repeat 50% 50%/cover
+    &__number,
+      &__judges
+        margin: -2px 44px 0
+        width: 69px
+        height: 98px
+        text-align: center
+        font-family: $font-2-quadro-tight-regular
+        font-size: 120px
+        text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.20)
+        letter-spacing: 2.4px
+        color: $white
+    &__judges
+      font-family: $font-favbet-display-normbold
+      font-size: 22px
+      line-height: 30px
+      width: 137px
+      margin: 0 10px 0
+      padding-top: 5px
+    &__right
+      display: flex
+      position: relative
+      &:after
+        content: ''
+        width: 2500px
+        //height: 630px
+        height: 650px
+        background: url('../img/smoke-blue.png') no-repeat 50% 50%/cover
+        position: absolute
+        right: -616px
+        //bottom: -270px
+        //bottom: -216px
+        bottom: -170px
+        animation: moveLeftRight 20s ease-in-out infinite alternate
+      &-fighter
+        z-index: 4
+        &:nth-child(1)
+          width: 240px
+        &:nth-child(2)
+          width: 180px
+          margin-left: 140px
+      &-belt
+        position: absolute
+        width: 990px
+        right: -175px
+        bottom: -60px
+        opacity: 0
+        transform: translateY(-80px)
+        &.animate
+          animation: fallDown 1.3s ease-out forwards
+  .results
+    width: 100%
+    position: relative
+    background: url('../img/welcome/welcome-bg.jpg') no-repeat center top
+    background-size: auto 902px
+    &:before
+      z-index: 2
+      content: ""
+      position: absolute
+      width: 100%
+      height: 200px
+      left: 0
+      top: -1px
+      background: linear-gradient(180deg, #01013E 0%, rgba(1, 1, 62, 0.00) 100%)
+    &:after
+      content: ''
+      position: absolute
+      top: 880px
+      left: 0
+      width: 100%
+      height: 200px
+      background: linear-gradient(0deg, #01013E 0%, rgba(1, 1, 62, 0.00) 100%)
+    .wrapp
+      margin: 30px auto
+      padding-top: 35px
+      position: relative
+      overflow: hidden
+      align-items: center
+      background: url('../img/results/results-desk.jpg') no-repeat center top
+      background-size: auto 1049px
+      @media screen and (max-width: 1050px)
+        background: url('../img/results/results-tab.jpg') no-repeat center top
+      @media screen and (max-width: 600px)
+        background: none
+    &__title
+      font-family: $font-favbet-display-normbold
+      font-size: 60px
+      letter-spacing: 0.6px
+      color: $white
+      margin-bottom: -40px
+      z-index: 4
+  .table
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: flex-start
+    width: 840px
+    min-height: 874px
+    height: 874px
+    z-index: 3
+    background: url('../img/results/table-bg-desk.jpg') no-repeat center top
+    background-size: 100% 100%
+    @media screen and (max-width: 1050px)
+      background: url('../img/results/table-bg-tab.png') no-repeat center top
+    @media screen and (max-width: 600px)
+      background: url('../img/results/table-bg-mob.png') no-repeat center top
+    &__head
+      width: 100%
+      display: flex
+      align-items: center
+      //padding: 55px 51px 12px
+      padding: 55px 35px 12px 15px
+      .table__row
+        display: flex
+        width: 100%
+        align-items: center
+        position: relative
+        &-item
+          font-family: $font-favbet-display-medium
+          font-size: 18px
+          letter-spacing: 0.18px
+          padding: 0 15px 0 35px
+          color: white
+          opacity: 0.5
+          text-transform: uppercase
+          &:not(:last-child)
+            position: relative
+            &:after
+              content: ''
+              position: absolute
+              top: 38px
+              right: 0
+              width: 3px
+              height: 763px
+              background: url('../img/results/red-table-line.png') no-repeat center top
+              background-size: 100% 100%
+          &:nth-child(1)
+            width: 170px
+            //width: 21%
+          &:nth-child(2)
+            width: 206px
+            //width: 23%
+          &:nth-child(3)
+            width: 180px
+            font-size: 18px
+            font-family: $font-favbet-display-medium
+          &:nth-child(4)
+            font-family: $font-favbet-display-medium
+            font-size: 18px
+            width: 234px
+    &__body
+      width: 100%
+      display: flex
+      flex-direction: column
+      align-items: center
+      &-scroll
+        margin-top: 5px
+        min-height: 719px
+        max-height: 719px
+        width: 95%
+        overflow-y: auto
+        scrollbar-width: auto
+        &::-webkit-scrollbar-thumb
+          width: 4px
+          background: $green
+        &::-webkit-scrollbar
+          background: rgba(63, 150, 111, 0.40)
+          width: 4px
+      .table
+        &__row
+          display: flex
+          width: 100%
+          align-items: center
+          position: relative
+
+          &.you
+            width: 97%
+            padding-left: 7px
+            background: $white
+            background: url('../img/results/row-you2.png') no-repeat center top
+            background-size: 100% 100%
+            .you
+              width: 50px
+              height: 30px
+              display: flex
+              align-items: center
+              justify-content: center
+              font-family: $font-favbet-display-medium
+              font-size: 20px
+              letter-spacing: 0.4px
+              position: absolute
+              left: 118px
+              background: url('../img/results/you.png') no-repeat center top
+              background-size: 100% 100%
+              text-transform: uppercase
+          &-item
+            height: 54.5px
+            display: flex
+            align-items: center
+            justify-content: flex-start
+            color: $white
+            font-size: 20px
+            letter-spacing: 0.4px
+            padding: 0 15px 0 30px
+            font-family: $font-favbet-display-medium
+            &:nth-child(1)
+              width: 170px
+            &:nth-child(2)
+              width: 206px
+            &:nth-child(3)
+              width: 180px
+              font-family: $font-suisse-intl-reg
+              font-size: 16px
+            &:nth-child(4)
+              font-family: $font-suisse-intl-reg
+              font-size: 14px
+              width: 234px
+  .bottom
+    position: relative
+    z-index: 3
+    margin-top: 30px
+    width: 840px
+    display: flex
+    flex-direction: column
+    .details
+      display: flex
+      justify-content: space-between
+      &__txt
+        width: 467px
+        font-family: $font-suisse-intl-reg
+        font-size: 11px
+        line-height: 18px
+        letter-spacing: 0.22px
+        color: $white
+        opacity: 0.5
+      .btn
+        min-width: 320px
+    .info
+      margin: 20px 0 30px
+      width: 100%
+      font-family: $font-suisse-intl-reg
+      font-size: 11px
+      line-height: 18px
+      letter-spacing: 0.22px
+      color: $white
+      opacity: 0.5
+    .drop
+      max-width: 100%
+      summary
+        font-size: 24px
+        letter-spacing: 1.2px
+        background: url("../img/rules-bg-desk.png") no-repeat 50% 50% / cover
+        background-size: 100% 100%
+      &-txt
+        width: 100%
+        max-height: 653px
+        min-height: 653px
+        overflow-y: hidden
+        padding-right: 25px
+        &-list
+          padding-right: 16px
+          max-height: 598px
+          overflow-y: auto
+          scrollbar-width: auto
+          &::-webkit-scrollbar-thumb
+            background: $green
+            width: 3px
+            border-radius: 3px
+          &::-webkit-scrollbar
+            background: $white
+            width: 3px
+
+
+
+
+@keyframes rotate
+  0%
+    transform: rotate(0deg)
+  100%
+    transform: rotate(360deg)
+
+@keyframes scale
+  0%
+    transform: scale(.8)
+  100%
+    transform: scale(1)
+
+@keyframes moveLeftRight
+  0%
+    transform: translateX(0)
+  100%
+    transform: translateX(-300px)
+
+@keyframes fallDown
+  to
+    transform: translateY(0)
+    opacity: 1
+
+@keyframes fromLeft
+  to
+    opacity: 1
+    transform: translateX(0)
+
+@keyframes fromRight
+  to
+    opacity: 1
+    transform: translateX(0)
+
+@keyframes pulseOpacity
+  0%
+    opacity: 0.4
+  100%
+    opacity: 1
