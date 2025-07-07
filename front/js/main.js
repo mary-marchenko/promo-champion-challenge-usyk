@@ -374,6 +374,9 @@
         const target = document.querySelector('.predict__content');
         const belt = document.querySelector('.predict__right-belt');
 
+        const screenWidth = window.innerWidth;
+        const thresholdValue = screenWidth <= 640 ? 0.3 : 0.9;
+
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -382,7 +385,7 @@
                 }
             });
         }, {
-            threshold: 0.9
+            threshold: thresholdValue
         });
 
         if (target) {

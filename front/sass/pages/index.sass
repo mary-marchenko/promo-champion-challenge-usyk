@@ -112,6 +112,10 @@ body
     .wrapp
       background: url('../img/welcome/welcome-desk.jpg') no-repeat center top
       background-size: auto 902px
+      @media screen and (max-width: 1050px)
+        background: url('../img/welcome/welcome-tab.jpg') no-repeat 50% 0/cover
+      @media screen and (max-width: 600px)
+        background: url('../img/welcome/welcome-mob.png') no-repeat 50% 50%/cover
     &__block
       margin-top: 94px
       margin-right: 250px
@@ -120,6 +124,8 @@ body
       display: flex
       flex-direction: column
       align-items: flex-start
+    &__usyk
+      display: none
     &__prize
       display: flex
       flex-direction: column
@@ -149,8 +155,10 @@ body
     .drop
       margin-top: 40px
       margin-bottom: 71px
+      &-txt
+        position: absolute
   .drop
-    max-width: 360px
+    min-width: 360px
     width: 100%
     position: relative
     z-index: 5
@@ -186,6 +194,7 @@ body
       letter-spacing: 1.28px
       user-select: none
       background: url('../img/drop-bg-desk.png') no-repeat 50% 50%/cover
+      background-size: 100% 100%
       @media screen and (max-width: 600px)
         font-size: 14px
         line-height: 22px
@@ -207,18 +216,10 @@ body
       min-height: 433px
       background: url('../img/drop-txt-bg.png') no-repeat 50% 50%/cover
       background-color: $blue-dropp
-      padding: 30px 30px 36px
-      max-height: 350px
-      overflow-y: auto
-      scrollbar-width: auto
+      background-size: 100% 100%
+      padding: 30px 23px 36px
+      max-height: 433px
       cursor: auto
-      &::-webkit-scrollbar-thumb
-        background: $green
-        width: 3px
-        border-radius: 3px
-      &::-webkit-scrollbar
-        background: $white
-        width: 3px
       .center
         text-align: center
         margin: 0 auto
@@ -226,6 +227,17 @@ body
         display: flex
         flex-direction: column
         gap: 15px
+        padding-right: 16px
+        max-height: 385px
+        overflow-y: auto
+        scrollbar-width: auto
+        &::-webkit-scrollbar-thumb
+          background: $green
+          width: 3px
+          border-radius: 3px
+        &::-webkit-scrollbar
+          background: $white
+          width: 3px
         p, strong
           font-size: 20px
           line-height: 26px
@@ -284,13 +296,13 @@ body
     &:after
       content: ''
       position: absolute
-      bottom: 29px
+      bottom: -1px
       left: 0
       width: 100%
       height: 200px
       background: linear-gradient(0deg, #01013E 0%, rgba(1, 1, 62, 0.00) 100%)
     .wrapp
-      margin-bottom: 30px
+      margin-bottom: 0
       position: relative
       overflow: hidden
       align-items: center
@@ -298,8 +310,8 @@ body
       background-size: auto 780px
       @media screen and (max-width: 1050px)
         background: url('../img/predict/predict-tab.jpg') no-repeat center top
-      @media screen and (max-width: 600px)
-        background: url('../img/predict/predict-mob.jpg') no-repeat center top
+      @media screen and (max-width: 649px)
+        background: url('../img/predict/predict-mob.png') no-repeat center top
       &__cont
           margin-top: 70px
           margin-bottom: 95px
@@ -324,6 +336,7 @@ body
       color: $white
       letter-spacing: 0.7px
       margin-bottom: 10px
+      text-transform: uppercase
     &__info
       font-family: $font-favbet-display-medium
       font-size: 24px
@@ -515,7 +528,7 @@ body
       background: url('../img/results/results-desk.jpg') no-repeat center top
       background-size: auto 1049px
       @media screen and (max-width: 1050px)
-        background: url('../img/results/results-tab.jpg') no-repeat center top
+        background: url('../img/results/results-tab.jpg') no-repeat 50% 56px
       @media screen and (max-width: 600px)
         background: none
     &__title
@@ -525,6 +538,7 @@ body
       color: $white
       margin-bottom: -40px
       z-index: 4
+      text-transform: uppercase
   .table
     display: flex
     flex-direction: column
@@ -538,8 +552,10 @@ body
     background-size: 100% 100%
     @media screen and (max-width: 1050px)
       background: url('../img/results/table-bg-tab.png') no-repeat center top
+      background-size: 100% 100%
     @media screen and (max-width: 600px)
       background: url('../img/results/table-bg-mob.png') no-repeat center top
+      background-size: 100% 100%
     &__head
       width: 100%
       display: flex
@@ -687,6 +703,9 @@ body
         letter-spacing: 1.2px
         background: url("../img/rules-bg-desk.png") no-repeat 50% 50% / cover
         background-size: 100% 100%
+        @media screen and (max-width: 600px)
+          background: url("../img/rules-bg-mob.png") no-repeat 50% 50% / cover
+          background-size: 100% 100%
       &-txt
         width: 100%
         max-height: 653px
@@ -726,6 +745,18 @@ body
     transform: translateX(0)
   100%
     transform: translateX(-300px)
+
+@keyframes moveLeftRightTab
+  0%
+    transform: translateX(0)
+  100%
+    transform: translateX(-180px)
+
+@keyframes moveLeftRightMob
+  0%
+    transform: translateX(0)
+  100%
+    transform: translateX(-80px)
 
 @keyframes fallDown
   to
