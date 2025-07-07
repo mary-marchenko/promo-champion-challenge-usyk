@@ -603,7 +603,7 @@
         &:before
           position: absolute
           content: ""
-          width: 600px
+          width: 612px
           background: linear-gradient(0deg, #01013E 0%, rgba(1, 1, 62, 0.00) 100%)
           bottom: 0
           left: 0
@@ -650,6 +650,7 @@
             width: 750px
             height: 290px
             background: url('../img/smoke-red.png') no-repeat 50% 100%
+            background-size: 100% 120%
 
       .btn
         margin-bottom: 112px
@@ -666,14 +667,14 @@
         //  height: 117px
     .predict
       &:after
-        bottom: 188px
+        bottom: 175px
       .wrapp
         background-position: 41% calc(50% - 90px)
-        background-size: auto 550px
+        background-size: auto 566px
         &:before
           position: absolute
           content: ""
-          width: 600px
+          width: 612px
           background: linear-gradient(0deg, #01013E 0%, rgba(1, 1, 62, 0.00) 100%)
           top: -24px
           left: -10px
@@ -705,6 +706,7 @@
           content: ""
           width: 1000px
           background: url('../img/smoke-red.png') no-repeat 50% 100%
+          background-size: 76% 130%
           top: 63px
           left: -300px
           height: 275px
@@ -842,7 +844,7 @@
             background-size: 100% 100%
     .predict
       &:after
-        bottom: 277px
+        bottom: 269px
       .wrapp
         background-size: auto 423px
         background-position: 41% calc(50% - 116px)
@@ -895,6 +897,10 @@
         width: 268px
         &:before
           bottom: -2px
+    .predict
+      &__left
+        &:before
+          top: 17px
 
   @media screen and (max-width: 380px)
     .welcome
@@ -942,6 +948,8 @@
       .wrapp
         background-size: auto 422px
     .results
+      &:after
+        top: 255px
       .table
         transform: scale(0.85)
         margin-bottom: -80px
