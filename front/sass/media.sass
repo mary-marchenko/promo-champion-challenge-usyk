@@ -11,8 +11,6 @@
       .results
         background: none
     .results
-      //.wrapp
-      //  margin-top: 0
       &:before
         top: 29px
 
@@ -162,6 +160,8 @@
       height: 58px
       font-size: 22px
       letter-spacing: 0.88px
+      padding: 5px 10px 4px 10px
+      max-width: 318px
     .welcome
       margin-bottom: 0
       &:after
@@ -256,6 +256,10 @@
           line-height: 21px
           letter-spacing: 0.52px
           width: 13px
+        .judges
+          font-size: 16px
+          line-height: 21px
+          letter-spacing: 0.16px
         &-result
           font-size: 11px
           text-shadow: 0px 1.335px 0px rgba(0, 0, 0, 0.25)
@@ -285,7 +289,7 @@
       &__right
         &:after
           height: 319px
-          bottom: -61px
+          bottom: -50px
           width: 1300px
           right: -350px
           animation: moveLeftRightTab 10s ease-in-out infinite alternate
@@ -299,14 +303,14 @@
         &-belt
           width: 529px
           right: -113px
-          bottom: 14px
+          bottom: 35px
           z-index: 2
     .results
       margin-top: 0
       &:before
         top: 52px
       &:after
-        top: 525px
+        top: 526px
       &__title
         font-family: $font-2-quadro-tight-regular
         font-size: 60px
@@ -329,12 +333,9 @@
             &:nth-child(2)
               width: 140px
             &:nth-child(3)
-              width: 90px
-              padding-left: 3px
-              font-size: 11px
-            &:nth-child(4)
               width: 157px
-              font-size: 10px
+            &:nth-child(4)
+              width: 90px
         &__head
           padding: 37px 21px 0px 10px
           .table__row
@@ -352,13 +353,9 @@
               &:nth-child(2)
                 width: 140px
               &:nth-child(3)
-                width: 90px
-                padding-left: 4px
-                font-size: 12px
-              &:nth-child(4)
                 width: 157px
-                font-size: 12px
-                padding-left: 14px
+              &:nth-child(4)
+                width: 90px
         &__body
           width: 99%
           &-scroll
@@ -492,7 +489,7 @@
         z-index: 5
     .predict
       .wrapp
-        background-size: auto 494px
+        background-size: auto 507px
       &__top
         margin-left: 45px
       &__left
@@ -503,11 +500,10 @@
         &-belt
           right: -97px
 
-
   @media screen and (max-width: 649px)
     .welcome
       &:after
-        bottom: 20px
+        bottom: 22px
       .wrapp
         background-size: auto 480px
         margin-bottom: -50px
@@ -531,15 +527,6 @@
         align-items: center
       &__left
         transform: scale(1)
-        //&:after
-        //  left: -400px
-        //  z-index: 0
-        //  content: ""
-        //  position: absolute
-        //  width: 1000px
-        //  height: 400px
-        //  bottom: 30px
-        //  background: url('../img/smoke-red.png') no-repeat 50% 76%
         &-container
           z-index: 3
           &:nth-child(2)
@@ -548,6 +535,7 @@
         padding-bottom: 130px
         &:after
           bottom: -138px
+          right: -360px
         &-belt
           bottom: -61px
           right: -101px
@@ -567,6 +555,7 @@
         top: 336px
         width: 122%
         height: 370px
+        left: -13px
         background: url('../img/smoke-red.png') no-repeat 50% 100%
       .wrapp
         background: none
@@ -651,20 +640,11 @@
             height: 290px
             background: url('../img/smoke-red.png') no-repeat 50% 100%
             background-size: 100% 120%
-
       .btn
         margin-bottom: 112px
       .drop
         width: 300px
         min-width: 300px
-        //&:before
-        //  position: absolute
-        //  content: ""
-        //  width: 600px
-        //  background: linear-gradient(0deg, #01013E 0%, rgba(1, 1, 62, 0.00) 100%)
-        //  top: 33px
-        //  left: -140px
-        //  height: 117px
     .predict
       &:after
         bottom: 175px
@@ -723,6 +703,7 @@
               margin-bottom: 14px
       .btn
         width: 340px
+        max-width: 340px
         bottom: -54px
       &__right
         &:after
@@ -736,7 +717,7 @@
             width: 125px
           &:nth-child(2)
             width: 95px
-            margin-left: 82px
+            margin-left: 86px
     .results
       &:before
         top: -114px
@@ -753,10 +734,14 @@
             align-items: flex-start
             &:nth-child(1)
               width: 109px
+            &:nth-child(2)
+              width: 110px
+            &:nth-child(3)
+              width: 130px
             &:nth-child(4)
-              font-size: 9px
-              line-height: 10px
-              padding-right: 4px
+              width: 100px
+              white-space: nowrap
+              padding-left: 0
         &__head
           padding-top: 50px
           .table__row
@@ -764,10 +749,17 @@
             &-item
               height: 34px
               &:nth-child(1)
-                width: 78px
+                width: 109px
+              &:nth-child(2)
+                padding-left: 12px
+                width: 110px
+              &:nth-child(3)
+                padding-left: 12px
+                width: 130px
               &:nth-child(4)
-                font-size: 12px
-                line-height: 14px
+                width: 100px
+                white-space: nowrap
+                padding-left: 5px
               &:not(:last-child)
                 &:after
                   display: none

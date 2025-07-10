@@ -1,6 +1,6 @@
 (function () {
 
-    const apiURL = 'https://fav-prom.com/api_your_promo'
+    const apiURL = 'https://fav-prom.com/api_champion_challenge_ua'
 
     const getActiveWeek = (promoStartDate, weekDuration) => {
         const currentDate = new Date();
@@ -33,7 +33,8 @@
         return activeWeekIndex;
     };
 
-    const promoStartDate = new Date("2025-05-05T00:00:00");
+    const promoStartDate = new Date("2025-07-15T12:00:00");
+    const promoEndDate = new Date("2025-07-19T23:29:59");
     const weekDuration = 10;
 
     const activeWeek = getActiveWeek(promoStartDate, weekDuration) || 1;
@@ -41,7 +42,8 @@
 
     const mainPage = document.querySelector(".fav-page"),
         unauthMsgs = document.querySelectorAll('.unauth-msg'),
-        participateBtns = document.querySelectorAll('.part-btn'),
+        // participateBtns = document.querySelectorAll('.part-btn'),
+        scrollPartBtn = document.querySelectorAll('.scroll-part-btn'),
         redirectBtns = document.querySelectorAll('.btn-join'),
         loader = document.querySelector(".spinner-overlay")
 
@@ -57,7 +59,8 @@
 
     let loaderBtn = false
 
-    let locale = "en"
+    // let locale = "uk"
+    let locale = sessionStorage.getItem("locale") || "uk"
 
     if (ukLeng) locale = 'uk';
     if (enLeng) locale = 'en';
@@ -68,7 +71,10 @@
 
     let i18nData = {};
     const translateState = true;
-    let userId = null;
+
+    let userId =  sessionStorage.getItem("userId") || null
+    // let userId = null;
+
 
     const request = function (link, extraOptions) {
         return fetch(apiURL + link, {
@@ -144,7 +150,7 @@
             .then(json => {
                 i18nData = json;
                 translate();
-                const targetNode = document.getElementById("goals-or-zeros-leage");
+                const targetNode = document.getElementById("champion-challenge-usyk");
                 const mutationObserver = new MutationObserver(function (mutations) {
                     mutationObserver.disconnect();
                     translate();
@@ -167,8 +173,9 @@
             const hideElements = (elements) => elements.forEach(el => el.classList.add('hide'));
 
             if (!userId) {
-                hideElements(participateBtns);
+                // hideElements(participateBtns);
                 hideElements(redirectBtns);
+                hideElements(scrollPartBtn);
                 showElements(unauthMsgs);
                 hideLoader();
                 return Promise.resolve(false);
@@ -178,11 +185,12 @@
 
             return request(`/favuser/${userId}?nocache=1`).then(res => {
                 if (res.userid) {
-                    hideElements(participateBtns);
+                    // hideElements(participateBtns);
+                    showElements(scrollPartBtn);
                     showElements(redirectBtns);
                 } else {
-                    showElements(participateBtns);
-                    hideElements(redirectBtns);
+                    showElements(scrollPartBtn);
+                    showElements(redirectBtns);
                 }
                 hideLoader();
             });
@@ -367,7 +375,7 @@
             });
     }
 
-    // loadTranslations().then(init) запуск ініту сторінки
+    loadTranslations().then(init)
 
     // anim belt
     document.addEventListener('DOMContentLoaded', function () {
@@ -423,5 +431,84 @@
     });
 
     updateDisplay();
+
+    // scroll to
+    document.addEventListener('DOMContentLoaded', function () {
+        const scrollBtn = document.querySelector('.scroll-part-btn');
+        const targetBlock = document.querySelector('.predict__content');
+
+        if (scrollBtn && targetBlock) {
+            scrollBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                targetBlock.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            });
+        }
+    });
+
+    // TEST
+    document.querySelector('.dark-btn').addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+    });
+
+    const lngBtn = document.querySelector(".lng-btn")
+    const authBtn = document.querySelector(".auth-btn")
+
+    lngBtn.addEventListener("click", () => {
+        if (sessionStorage.getItem("locale")) {
+            sessionStorage.removeItem("locale");
+        } else {
+            sessionStorage.setItem("locale", "en");
+        }
+        window.location.reload();
+    });
+
+    authBtn.addEventListener("click", () =>{
+        if(userId){
+            sessionStorage.removeItem("userId")
+        }else{
+            sessionStorage.setItem("userId", "777")
+        }
+        window.location.reload()
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const button = document.querySelector('.btn-predictNum');
+        const counter = document.querySelector('.predict__left-counter');
+
+        if (button && counter) {
+            button.addEventListener('click', function () {
+                counter.textContent = '1';
+            });
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const predictBtn = document.querySelector('.btn-predictJud');
+        const confirmBtn = document.querySelector('.btn-confirmed');
+        const last = document.querySelector('.predict__left-last.number');
+        const judges = document.querySelector('.predict__left-last.judges');
+        const confermd = document.querySelector('.predict__left-result.confirmed');
+        const unconfermd = document.querySelector('.predict__left-result.unconfirmed');
+
+
+        predictBtn.addEventListener('click', function () {
+            last.classList.toggle('hide');
+            judges.classList.toggle('hide');
+        });
+
+        confirmBtn.addEventListener('click', function () {
+            confermd.classList.toggle('hide');
+            unconfermd.classList.toggle('hide');
+        });
+    });
+
+    document.querySelector('.btn-end').addEventListener('click', function () {
+        document.querySelectorAll('.btn, .predict__minus, .predict__plus').forEach(function (el) {
+            el.classList.toggle('_lock');
+        });
+    });
 
 })();

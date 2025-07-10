@@ -16,6 +16,32 @@ body
   & > *
     font-family: inherit
 
+//test
+.menu-btn
+  position: fixed
+  top: 0
+  left: 0
+  z-index: 20
+  width: fit-content
+  background: white
+  padding: 3px
+
+.menu-test
+  position: fixed
+  left: 0
+  top: 25px
+  z-index: 20
+  display: flex
+  gap: 2px
+  flex-direction: column
+  & > button
+    width: fit-content
+    background: white
+    color: black
+    padding: 2px
+    font-family: inherit
+    border-radius: 2px
+
 // loader
 .spinner-overlay
   position: absolute
@@ -51,7 +77,7 @@ body
     justify-content: center
     align-items: center
     height: 68px
-    padding: 2px 10px 4px 10px
+    padding: 3px 10px 4px 10px
     width: max-content
     background: url('../img/bnt-bg-desk.jpg') no-repeat 50% 50%/cover
     transition: background .4s ease-in-out
@@ -107,7 +133,7 @@ body
       width: 100%
       height: 200px
       left: 0
-      top: 703px
+      top: 705px
       background: linear-gradient(0deg, #01013E 0%, rgba(1, 1, 62, 0.00) 100%)
     .wrapp
       background: url('../img/welcome/welcome-desk.jpg') no-repeat center top
@@ -439,6 +465,9 @@ body
       &__plus
         width: 80px
         height: 68px
+        &._lock
+          pointer-events: none
+          filter: contrast(0.6)
     &__plus
       background: url('../img/plus.jpg') no-repeat 50% 50%/cover
       &:active,
@@ -588,18 +617,12 @@ body
               background-size: 100% 100%
           &:nth-child(1)
             width: 170px
-            //width: 21%
           &:nth-child(2)
             width: 206px
-            //width: 23%
           &:nth-child(3)
-            width: 180px
-            font-size: 18px
-            font-family: $font-favbet-display-medium
-          &:nth-child(4)
-            font-family: $font-favbet-display-medium
-            font-size: 18px
             width: 234px
+          &:nth-child(4)
+            width: 180px
     &__body
       width: 100%
       display: flex
@@ -660,13 +683,11 @@ body
             &:nth-child(2)
               width: 206px
             &:nth-child(3)
-              width: 180px
-              font-family: $font-suisse-intl-reg
-              font-size: 16px
-            &:nth-child(4)
-              font-family: $font-suisse-intl-reg
-              font-size: 14px
               width: 234px
+              //width: 180px
+            &:nth-child(4)
+              width: 180px
+              //width: 234px
   .bottom
     position: relative
     z-index: 3

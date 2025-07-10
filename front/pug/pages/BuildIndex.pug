@@ -1,3 +1,12 @@
+button.menu-btn menu
+.menu-test
+    button.dark-btn dark
+    button.lng-btn en
+    button.auth-btn auth
+    button.btn-predictNum прогноз 1
+    button.btn-predictJud прогноз судді
+    button.btn-confirmed confirmed
+    button.btn-end end
 .fav-page.loading#champion-challenge-usyk
     .spinner-overlay
         .spinner
@@ -22,8 +31,7 @@
                     .welcome__prize-center(data-translate="prizeMoney") 1 000 000 ₴ #[span *]
                     .welcome__prize-bottom(data-translate="prizeInfo") З 12:00 15 липня до 22:29 19 липня 2025 року прогнозуй, в якому раунді закінчиться бій, здійснюй ставку від 200 ₴ та отримай шанс розділити призовий фонд 1 000 000 ₴
                 a.welcome__btn.btn.unauth-msg(data-translate="signBtn" href="/login/" data-promo="champion_challenge_usyk_15072025" data-button="authorization_header") Авторизуйся
-                button.welcome__btn.btn.part-btn.hide(data-translate="partBtn" data-promo="champion_challenge_usyk_15072025" data-button="takePart_header") Взяти участь
-                a.welcome__btn.btn.play-btn.hide(data-translate="playBtn" href="#" data-promo="champion_challenge_usyk_15072025" data-button="placeBet_header") Зробити ставку
+                button.welcome__btn.btn.scroll-part-btn.hide(data-translate="partBtn" data-promo="champion_challenge_usyk_15072025" data-button="takePart_header") Зробити прогноз
                 .drop.welcome__dropp
                     details.dropdown
                         summary(data-translate="detailsTitle" data-click-drop="дроп Правила") Деталі
@@ -45,11 +53,10 @@
                                 .predict__judges.hide(data-translate="judgesDecision") За рішенням суддів
                                 button.predict__plus &#8203;
                             a.welcome__btn.btn.unauth-msg(data-translate="signBtn" href="/login/" data-promo="champion_challenge_usyk_15072025" data-button="authorization_content") Авторизуйся
-                            button.welcome__btn.btn.part-btn.hide(data-translate="partBtn" data-promo="champion_challenge_usyk_15072025" data-button="takePart_content") Взяти участь
-                            a.welcome__btn.btn.play-btn.hide(data-translate="playBtn" href="#" data-promo="champion_challenge_usyk_15072025" data-button="placeBet_content") Зробити ставку
+                            buttom.welcome__btn.btn.btn-join.hide(data-translate="partBtn" data-promo="champion_challenge_usyk_15072025" data-button="placeBet_content") Зробити прогноз
                         .predict__left-container
                             .predict__left-title(data-translate="lastPredict") останній прогноз
-                            .predict__left-last
+                            .predict__left-last.number
                                 .predict__left-fighter(data-translate="Usyk") Олександр Усик
                                 .predict__left-counter 12
                                 .predict__left-fighter(data-translate="Dubois") Даниель Дюбуа
@@ -95,96 +102,94 @@
                         .table__row
                             .table__row-item 0000067
                             .table__row-item 08.08.2023 20:00
-                            .table__row-item 12
-                            .table__row-item 16000 електронних грошових замінників на рахунок гравця
+                            .table__row-item Judges' decision
+                            .table__row-item 20 000 ₴
                         .table__row
                             .table__row-item 0000067
                             .table__row-item 08.08.2023 20:00
                             .table__row-item За рішенням суддів
-                            .table__row-item 10 000$ 10 000$
+                            .table__row-item 20 000 ₴
                         .table__row
                             .table__row-item 0000067
                             .table__row-item 08.08.2023 20:00
                             .table__row-item 12
-                            .table__row-item 10 000$ 10 000$
+                            .table__row-item 20 000 ₴
                         .table__row
                             .table__row-item 0000067
                             .table__row-item 08.08.2023 20:00
                             .table__row-item 12
-                            .table__row-item 10 000$ 10 000$
+                            .table__row-item 20 000 ₴
                         .table__row
                             .table__row-item 0000067
                             .table__row-item ********
                             .table__row-item 12
-                            .table__row-item 10 000$ 10 000$
+                            .table__row-item 20 000 ₴
+                        .table__row
+                            .table__row-item 0000067
+                            .table__row-item 08.08.2023 20:00
+                            .table__row-item 4
+                            .table__row-item 20 000 ₴
                         .table__row
                             .table__row-item 0000067
                             .table__row-item 08.08.2023 20:00
                             .table__row-item 12
-                            .table__row-item 10 000$ 10 000$
+                            .table__row-item 20 000 ₴
                         .table__row
                             .table__row-item 0000067
                             .table__row-item 08.08.2023 20:00
                             .table__row-item 12
-                            .table__row-item 10 000$ 10 000$
+                            .table__row-item 20 000 ₴
                         .table__row
                             .table__row-item 0000067
                             .table__row-item 08.08.2023 20:00
                             .table__row-item 12
-                            .table__row-item 10 000$ 10 000$
+                            .table__row-item 20 000 ₴
                         .table__row
                             .table__row-item 0000067
                             .table__row-item 08.08.2023 20:00
                             .table__row-item 12
-                            .table__row-item 10 000$ 10 000$
+                            .table__row-item 20 000 ₴
                         .table__row
                             .table__row-item 0000067
                             .table__row-item 08.08.2023 20:00
                             .table__row-item 12
-                            .table__row-item 10 000$ 10 000$
+                            .table__row-item 20 000 ₴
+                        .table__row
+                            .table__row-item 0000067
+                            .table__row-item 08.08.2023 20:00
+                            .table__row-item За рішенням суддів
+                            .table__row-item 20 000 ₴
+                        .table__row
+                            .table__row-item 0000067
+                            .table__row-item 08.08.2023 20:00
+                            .table__row-item 1
+                            .table__row-item 20 000 ₴
                         .table__row
                             .table__row-item 0000067
                             .table__row-item 08.08.2023 20:00
                             .table__row-item 12
-                            .table__row-item 10 000$ 10 000$
+                            .table__row-item 20 000 ₴
                         .table__row
                             .table__row-item 0000067
                             .table__row-item 08.08.2023 20:00
                             .table__row-item 12
-                            .table__row-item 10 000$ 10 000$
+                            .table__row-item 20 000 ₴
                         .table__row
                             .table__row-item 0000067
                             .table__row-item 08.08.2023 20:00
                             .table__row-item 12
-                            .table__row-item 10 000$ 10 000$
-                        .table__row
-                            .table__row-item 0000067
-                            .table__row-item 08.08.2023 20:00
-                            .table__row-item 12
-                            .table__row-item 10 000$ 10 000$
-                        .table__row
-                            .table__row-item 0000067
-                            .table__row-item 08.08.2023 20:00
-                            .table__row-item 12
-                            .table__row-item 10 000$ 10 000$
-                        .table__row
-                            .table__row-item 0000067
-                            .table__row-item 08.08.2023 20:00
-                            .table__row-item 12
-                            .table__row-item 10 000$ 10 000$
+                            .table__row-item 20 000 ₴
                 .table__body#tableOther
                     .table__row.you
                         .table__row-item 0000067
                             span.you(data-translate="you") Ти
                         .table__row-item 08.08.2023 20:00
                         .table__row-item 12
-                        .table__row-item 16000 електронних грошових замінників на рахунок гравця
+                        .table__row-item 20 000 ₴
             .bottom
                 .details
                     .details__txt(data-translate="bottomDetails") * Точний приз (Бонус) у вигляді визначеної кількості електронних грошових замінників буде відомий після закінчення бою та доданий в таблицю наступного робочого дня. Призовий фонд буде розподілено між учасниками, які вказали точно в якому раунді закінчиться бій  та зробили підтверджувальну ставку, умови якої прописані в Офіційних правилах участі в Акції «Чемпіонський виклик» в п.9.3 та 9.4.
-                    a.welcome__btn.btn.unauth-msg(data-translate="signBtn" href="/login/" data-promo="champion_challenge_usyk_15072025" data-button="authorization_footer") Авторизуйся
-                    button.welcome__btn.btn.part-btn.hide(data-translate="partBtn" data-promo="champion_challenge_usyk_15072025" data-button="takePart_footer") Взяти участь
-                    a.welcome__btn.btn.play-btn.hide(data-translate="playBtn" href="#" data-promo="champion_challenge_usyk_15072025" data-button="placeBet_footer") Зробити ставку
+                    a.welcome__btn.btn(data-translate="playBtn" href="/sports/event/boxing/42087017/" data-promo="champion_challenge_usyk_15072025" data-button="placeBet_footer") Зробити ставку
                 .info(data-translate="bottomInfo") Під призовим фондом у 1 000 000 ₴ мається на увазі отримання призу у вигляді електронних грошових замінників в Акції «Чемпіонський виклик».Період дії акції – з 12:00 15.07.2025 по 22:29 19.07.2025 року. Деталі акції на сайті favbet.ua.
                 .drop
                     details.dropdown

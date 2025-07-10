@@ -12,3 +12,57 @@ picture
       display: none
     &.en
       display: inline-block
+  .welcome
+    &__usyk
+      &:before
+        @media screen and (max-width: 411px)
+          bottom: -5px
+    &:after
+      @media screen and (max-width: 649px) and (min-width: 601px)
+        bottom: 34px
+  .predict
+    &:after
+      @media screen and (max-width: 649px)
+        bottom: 130px
+      @media screen and (max-width: 450px)
+        bottom: 280px
+    &__judges
+      padding-top: 18px
+      @media screen and (max-width: 1050px)
+        padding-top: 15px
+    &__right
+      &-fighter
+        &:nth-child(1)
+          width: 172px
+          @media screen and (max-width: 1050px)
+            width: 90px
+          @media screen and (max-width: 650px)
+            width: 97px
+        &:nth-child(2)
+          width: 169px
+          margin-left: 152px
+          @media screen and (max-width: 1050px)
+            width: 89px
+            margin-left: 135px
+          @media screen and (max-width: 750px)
+            margin-left: 125px
+          @media screen and (max-width: 690px)
+            margin-left: 110px
+          @media screen and (max-width: 690px) and (min-width: 600px)
+            margin-left: 80px
+          @media screen and (max-width: 649px)
+            width: 95px
+          @media screen and (max-width: 600px)
+            margin-left: 99px
+      &-belt
+        @media screen and (max-width: 690px) and (min-width: 600px)
+          right: -134px
+      @media screen and (max-width: 521px)
+        padding-bottom: 129px
+    .wrapp
+      @media screen and (max-width: 649px)
+        background-position: 47% -100%
+      @media screen and (max-width: 600px)
+        background-position: 41% calc(50% - 120px)
+      @media screen and (max-width: 521px)
+        background-position: 50% calc(50% - 120px)

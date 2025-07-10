@@ -10,3 +10,49 @@ body.dark
       display: none
     picture.dark
       display: inline-block
+    .welcome
+      background: url('../img/welcome/welcome-bg-dark.jpg') no-repeat center top
+      background-size: auto 902px
+      @media screen and (max-width: 1600px)
+        background: none
+      &:after
+        background: linear-gradient(0deg, $dark-bg 0%, rgba(1, 1, 62, 0.00) 100%)
+      &__usyk
+        &:before
+          @media screen and (max-width: 600px)
+            background: linear-gradient(0deg, $dark-bg 0%, rgba(1, 1, 62, 0.00) 100%)
+    .drop
+      &-txt
+        background-color: $dark-bg
+    .predict
+      background: url('../img/predict/predict-bg-dark.jpg') no-repeat center top
+      background-size: auto 772px
+      @media screen and (max-width: 1600px)
+        background: none
+      .wrapp
+        &:before
+          @media screen and (max-width: 600px)
+            background: linear-gradient(0deg, $dark-bg 0%, rgba(1, 1, 62, 0.00) 100%)
+      &:before
+        background: linear-gradient(180deg, $dark-bg 0%, rgba(1, 1, 62, 0.00) 100%)
+      &:after
+        background: linear-gradient(0deg, $dark-bg 0%, rgba(1, 1, 62, 0.00) 100%)
+      &__title
+        &:after
+          @media screen and (max-width: 600px)
+            background: linear-gradient(180deg, $dark-bg 0%, rgba(1, 1, 62, 0.00) 100%)
+    .results
+      background: url('../img/welcome/welcome-bg-dark.jpg') no-repeat center top
+      background-size: auto 902px
+      @media screen and (max-width: 1600px)
+        background: none
+      &:before
+        @media screen and (max-width: 1600px) and (min-width: 650px)
+          background: linear-gradient(180deg, $dark-bg 0%, rgba(1, 1, 62, 0.00) 100%)
+      &:after
+        @media screen and (max-width: 1600px) and (min-width: 650px)
+          background: linear-gradient(0deg, $dark-bg 0%, rgba(1, 1, 62, 0.00) 100%)
+      .bottom
+        &:before
+          @media screen and (max-width: 649px)
+            background: linear-gradient(0deg, $dark-bg 0%, rgba(1, 1, 62, 0.00) 100%)
