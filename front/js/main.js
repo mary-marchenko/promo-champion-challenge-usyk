@@ -43,6 +43,7 @@
     const mainPage = document.querySelector(".fav-page"),
         unauthMsgs = document.querySelectorAll('.unauth-msg'),
         // participateBtns = document.querySelectorAll('.part-btn'),
+        playBtn = document.querySelectorAll('.play-btn'),
         scrollPartBtn = document.querySelectorAll('.scroll-part-btn'),
         redirectBtns = document.querySelectorAll('.btn-join'),
         loader = document.querySelector(".spinner-overlay")
@@ -176,6 +177,7 @@
                 // hideElements(participateBtns);
                 hideElements(redirectBtns);
                 hideElements(scrollPartBtn);
+                hideElements(playBtn);
                 showElements(unauthMsgs);
                 hideLoader();
                 return Promise.resolve(false);
@@ -188,9 +190,11 @@
                     // hideElements(participateBtns);
                     showElements(scrollPartBtn);
                     showElements(redirectBtns);
+                    showElements(playBtn);
                 } else {
                     showElements(scrollPartBtn);
                     showElements(redirectBtns);
+                    showElements(playBtn);
                 }
                 hideLoader();
             });
