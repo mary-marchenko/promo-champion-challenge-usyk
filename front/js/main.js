@@ -2,51 +2,33 @@
 
     const apiURL = 'https://fav-prom.com/api_champion_challenge_ua'
 
-    const getActiveWeek = (promoStartDate, weekDuration) => {
-        const currentDate = new Date();
-        let weekDates = [];
-
-        const Day = 24 * 60 * 60 * 1000;
-        const Week = weekDuration * Day;
-
-        const formatDate = (date) =>
-            `${date.getDate().toString().padStart(2, "0")}.${(date.getMonth() + 1).toString().padStart(2, "0")}`;
-
-        const calculateWeekPeriod = (weekIndex) => {
-            const baseStart = promoStartDate.getTime();
-            const start = new Date(baseStart + weekIndex * Week);
-            let end = new Date(start.getTime() + (weekDuration * Day - 1));
-            return { start, end };
-        };
-
-        let activeWeekIndex = null;
-
-        // Перевірка поточного тижня
-        for (let i = 0; i < 10; i++) { // Обмежуємо 10 тижнями (якщо потрібно більше, просто змініть лічильник)
-            const { start, end } = calculateWeekPeriod(i);
-            if (currentDate >= start && currentDate <= end) {
-                activeWeekIndex = i + 1;
-                break;
-            }
-        }
-
-        return activeWeekIndex;
-    };
-
     const promoStartDate = new Date("2025-07-15T12:00:00");
     const promoEndDate = new Date("2025-07-19T23:29:59");
-    const weekDuration = 10;
 
-    const activeWeek = getActiveWeek(promoStartDate, weekDuration) || 1;
+    setInterval(() => {
+        currentDate = new Date(); // Оновити поточну дату
+        checkAndLockPromo(currentDate, promoEndDate)
+    }, 600000); // Оновлювати кожні 10 хв
+
+    function checkAndLockPromo(currentDate, promoEndDate) {
+        if (currentDate >= promoEndDate) {
+            document.querySelectorAll('.btn, .predict__minus, .predict__plus').forEach(function (el) {
+                el.classList.add('_lock');
+            });
+        }
+    }
 
 
     const mainPage = document.querySelector(".fav-page"),
+        tableBody = document.querySelector(".table__body"),
         unauthMsgs = document.querySelectorAll('.unauth-msg'),
         // participateBtns = document.querySelectorAll('.part-btn'),
         playBtn = document.querySelectorAll('.play-btn'),
         scrollPartBtn = document.querySelectorAll('.scroll-part-btn'),
-        redirectBtns = document.querySelectorAll('.btn-join'),
-        loader = document.querySelector(".spinner-overlay")
+        placeBetBtn = document.querySelector('.btn-join'),
+        loader = document.querySelector(".spinner-overlay"),
+        resultsTable = document.querySelector('#table'),
+        resultsTableOther = document.querySelector('#tableOther')
 
     const ukLeng = document.querySelector('#ukLeng');
     const enLeng = document.querySelector('#enLeng');
@@ -58,8 +40,8 @@
         el.removeAttribute('data-translate');
     });
 
-    let loaderBtn = false
-
+    let currentBet; 
+    
     // let locale = "uk"
     let locale = sessionStorage.getItem("locale") || "uk"
 
@@ -128,7 +110,16 @@
 
         function quickCheckAndRender() {
             checkUserAuth();
+            renderUsers();
+            placeBetBtn.addEventListener('click', (e) => {
+                e.preventDefault();
 
+                if (!currentBet) {
+                    currentBet = new Bet(userId, matchNumber);
+                }
+
+                placeBet(currentBet);
+            });
         }
 
         const waitForUserId = new Promise((resolve) => {
@@ -175,7 +166,7 @@
 
             if (!userId) {
                 // hideElements(participateBtns);
-                hideElements(redirectBtns);
+                placeBetBtn.classList.add('hide');
                 hideElements(scrollPartBtn);
                 hideElements(playBtn);
                 showElements(unauthMsgs);
@@ -189,11 +180,11 @@
                 if (res.userid) {
                     // hideElements(participateBtns);
                     showElements(scrollPartBtn);
-                    showElements(redirectBtns);
+                    showElements([placeBetBtn]);
                     showElements(playBtn);
                 } else {
                     showElements(scrollPartBtn);
-                    showElements(redirectBtns);
+                    showElements([placeBetBtn]);
                     showElements(playBtn);
                 }
                 hideLoader();
@@ -247,139 +238,206 @@
         element.classList.add(locale);
     }
 
-    function renderUsers(week) {
-        request(`/users/${week}`)
+    function renderUsers(users) {
+        request(`/users/`)
             .then(data => {
-                const users = data;
-                populateUsersTable(users, userId, week);
+                populateUsersTable(data, userId);
             });
     }
 
-    function populateUsersTable(users, currentUserId, week) {
+    function populateUsersTable(users, currentUserId) {
         resultsTable.innerHTML = '';
         resultsTableOther.innerHTML = '';
+
         if (!users?.length) return;
-        const currentUser = users.find(user => user.userid === currentUserId);
-        const isTopCurrentUser = currentUser && users.slice(0, 10).some(user => user.userid === currentUserId);
-        const topUsersLength = !userId || isTopCurrentUser  ? 13 : 10;
-        const topUsers = users.slice(0, topUsersLength);
-        topUsers.forEach(user => {
-            displayUser(user, user.userid === currentUserId, resultsTable, topUsers, isTopCurrentUser, week);
+
+        users.forEach(user => {
+            const isCurrentUser = user.userid === currentUserId;
+            const targetTable = isCurrentUser ? resultsTableOther : resultsTable;
+            displayUser(user, isCurrentUser, targetTable);
         });
-        if (!isTopCurrentUser && currentUser) {
-            displayUser(currentUser, true, resultsTableOther, users, false, week);
-        }
     }
 
-    function displayUser(user, isCurrentUser, table, users, isTopCurrentUser, week) {
-        const renderRow = (userData, options = {}) => {
-            const { highlight = false, neighbor = false } = options;
-            const userRow = document.createElement('div');
-            userRow.classList.add('table__row');
+    // function displayUser(user, isCurrentUser, table) {
+    //     const additionalUserRow = document.createElement('div');
+    //     additionalUserRow.classList.add('table__row');
+    //     if (isCurrentUser) {
+    //         updateLastPrediction(user);
+    //         additionalUserRow.classList.add('you');
+    //     }
+    //
+    //     const prediction = user.score == 13 ? i18nData[judgesDecision] : current;
+    //
+    //     additionalUserRow.innerHTML = `
+    //                     <div class="table__row-item">${user.userid} ${isCurrentUser ? '<span data-translate="you"></span>' : ''}</div>
+    //                     <div class="table__row-item">${formatDateString(user.lastForecast)}</div>
+    //                     <div class="table__row-item">${prediction}</div>
+    //                     <div class="table__row-item">***</div>
+    //                 `;
+    //     const userIdDisplay = isCurrentUser ? user.userid : maskUserId(user.userid);
+    //     table.append(additionalUserRow);
+    //
+    //     function updateLastPrediction(data) {
+    //
+    //         const scoreDiv = document.querySelector('.predict__left-counter');
+    //         scoreDiv.innerHTML = `${data.team}`;
+    //
+    //         const unconfirmedItem = document.querySelector(".predict__left-result.unconfirmed");
+    //         const confirmedItem = document.querySelector(".predict__left-result.confirmed");
+    //
+    //         const isConfirmed = (data.betConfirmed);
+    //
+    //         confirmedItem.classList.toggle("hide", !isConfirmed);
+    //         unconfirmedItem.classList.toggle("hide", isConfirmed);
+    //     }
+    //
+    // }
 
-            const userPlace = users.indexOf(userData) + 1;
-            const prizeKey = debug ? null : getPrizeTranslationKey(userPlace, week);
+    // function displayUser(user, isCurrentUser) {
+    //     let table;
+    //
+    //     if (isCurrentUser) {
+    //         table = document.querySelector('#tableOther');
+    //     } else {
+    //         const tableBody = document.querySelector('#table');
+    //
+    //
+    //         let scrollContainer = tableBody.querySelector('.table__body-scroll');
+    //         if (!scrollContainer) {
+    //             scrollContainer = document.createElement('div');
+    //             scrollContainer.classList.add('table__body-scroll');
+    //             tableBody.appendChild(scrollContainer);
+    //         }
+    //
+    //         table = scrollContainer;
+    //     }
+    //
+    //     const row = document.createElement('div');
+    //     row.classList.add('table__row');
+    //     if (isCurrentUser) row.classList.add('you');
+    //
+    //     const prediction = Number(user.team) === 13
+    //         ? i18nData["judgesDecision"]
+    //         : user.team;
+    //         console.log(i18nData["judgesDecision"])
+    //
+    //     const userIdDisplay = isCurrentUser
+    //         ? `${user.userid} <span class="you" data-translate="you"></span>`
+    //         : maskUserId(user.userid);
+    //
+    //     row.innerHTML = `
+    //     <div class="table__row-item">${userIdDisplay}</div>
+    //     <div class="table__row-item">${formatDateString(user.lastForecast)}</div>
+    //     <div class="table__row-item">${prediction}</div>
+    //     <div class="table__row-item">****</div>
+    // `;
+    //
+    //     table.appendChild(row);
+    //
+    //     if (isCurrentUser) {
+    //         updateLastPrediction(user);
+    //     }
+    //
+    //     function maskUserId(userId) {
+    //         return '**' + userId.toString().slice(2);
+    //     }
+    //
+    //     function updateLastPrediction(data) {
+    //         const scoreDiv = document.querySelector('.predict__left-counter');
+    //         if (scoreDiv) scoreDiv.innerHTML = `${data.team}`;
+    //         console.log(`${data.team}`);
+    //
+    //         const unconfirmedItem = document.querySelector(".predict__left-result.unconfirmed");
+    //         const confirmedItem = document.querySelector(".predict__left-result.confirmed");
+    //
+    //         const isConfirmed = data.betConfirmed;
+    //
+    //         confirmedItem?.classList.toggle("hide", !isConfirmed);
+    //         unconfirmedItem?.classList.toggle("hide", isConfirmed);
+    //     }
+    // }
+    function displayUser(user, isCurrentUser, table) {
+        const row = document.createElement('div');
+        row.classList.add('table__row');
+        console.log(isCurrentUser)
 
-            if (userPlace <= 3) {
-                userRow.classList.add(`place${userPlace}`);
+        if (isCurrentUser) {
+            row.classList.add('you');
+
+            updateLastPrediction(user);
+        } else {
+            const tableBody = document.querySelector('#table');
+            if (!tableBody) return;
+
+            let scrollContainer = tableBody.querySelector('.table__body-scroll');
+
+            if (!scrollContainer) {
+                scrollContainer = document.createElement('div');
+                scrollContainer.classList.add('table__body-scroll');
+                tableBody.appendChild(scrollContainer);
             }
 
-            if (highlight || isCurrentUser && !neighbor) {
-                userRow.classList.add('you');
-            } else if (neighbor) {
-                userRow.classList.add('_neighbor');
-            }
+            table = scrollContainer;
+        }
 
-            userRow.innerHTML = `
-            <div class="table__row-item">
-                ${userPlace < 10 ? '0' + userPlace : userPlace}
-                ${isCurrentUser && !neighbor ? '<span class="you">' + translateKey("you") + '</span>' : ''}
-            </div>
-            <div class="table__row-item">
-                ${isCurrentUser && !neighbor ? userData.userid : maskUserId(userData.userid)}
-            </div>
-            <div class="table__row-item">
-                ${userData.points}
-            </div>
-            <div class="table__row-item">
-                ${prizeKey ? translateKey(prizeKey) : ' - '}
-            </div>
+        const prediction = Number(user.team) === 13
+            ? i18nData["judgesDecision"]
+            : user.team;
+
+        const userIdDisplay = isCurrentUser
+            ? `${user.userid} <span class="you" data-translate="you"></span>`
+            : maskUserId(user.userid);
+
+        row.innerHTML = `
+        <div class="table__row-item">${userIdDisplay}</div>
+        <div class="table__row-item">${formatDateString(user.lastForecast)}</div>
+        <div class="table__row-item">${prediction}</div>
+        <div class="table__row-item">****</div>
         `;
 
-            table.append(userRow);
-        };
-        if (isCurrentUser && !isTopCurrentUser) {
-            const index = users.indexOf(user);
-            if (users[index - 1]) {
-                renderRow(users[index - 1], { neighbor: true });
-            }
-            renderRow(user, { highlight: true });
-            if (users[index + 1]) {
-                renderRow(users[index + 1], { neighbor: true });
-            }
-        } else {
-            renderRow(user);
-        }
-    }
-
-
-    function translateKey(key, defaultValue) {
-        if (!key) {
-            return;
-        }
-        let needKey = debug ? key : `*----NEED TO BE TRANSLATED----* key: ${key}`
-
-        defaultValue =  needKey || key;
-        return i18nData[key] || defaultValue;
+        table?.appendChild(row);
     }
 
     function maskUserId(userId) {
-        return "**" + userId.toString().slice(2);
+        return '**' + userId.toString().slice(2);
     }
 
-    function getPrizeTranslationKey(place, week) {
-        if (place <= 3) return `prize_${week}-${place}`;
-        if (place <= 10) return `prize_${week}-4-10`;
-        if (place <= 25) return `prize_${week}-11-25`;
-        if (place <= 50) return `prize_${week}-26-50`;
-        if (place <= 75) return `prize_${week}-51-75`;
-        if (place <= 100) return `prize_${week}-76-100`;
-        if (place <= 125) return `prize_${week}-101-125`;
-        if (place <= 150) return `prize_${week}-126-150`;
-        if (place <= 175) return `prize_${week}-151-175`;
-        if (place <= 200) return `prize_${week}-176-200`;
-    }
+    function updateLastPrediction(user) {
+        request(`/users/`)
+            .then(data => {
+                const scoreDiv = document.querySelector('.predict__left-counter');
+                if (scoreDiv) {
+                    scoreDiv.innerHTML = `${data.team}`;
+                }
 
-    function participate() {
-        if (!userId) {
-            return;
-        }
-        const params = { userid: userId };
-        fetch(apiURL + '/user/', {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: 'POST',
-            body: JSON.stringify(params)
-        }).then(res => res.json())
-            .then(res => {
-                loaderBtn = true
-                toggleClasses(participateBtns, "loader")
-                toggleTranslates(participateBtns, "loader")
-                setTimeout(() =>{
-                    toggleTranslates(participateBtns, "loader_ready")
-                    toggleClasses(participateBtns, "done")
-                    toggleClasses(participateBtns, "loader")
-                }, 500)
-                setTimeout(()=>{
-                    checkUserAuth()
-                }, 1000)
+                console.log(data.team)
+                console.log("updateLastPrediction work")
 
+                const unconfirmedItem = document.querySelector(".predict__left-result.unconfirmed");
+                const confirmedItem = document.querySelector(".predict__left-result.confirmed");
+
+                const isConfirmed = data.betConfirmed;
+
+                confirmedItem?.classList.toggle("hide", !isConfirmed);
+                unconfirmedItem?.classList.toggle("hide", isConfirmed);
             });
+
+    }
+
+    function formatDateString(dateString) {
+        const date = new Date(dateString);
+
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+
+        return `${day}.${month}.${year} ${hours}:${minutes}`;
     }
 
     loadTranslations().then(init)
+
 
     // anim belt
     document.addEventListener('DOMContentLoaded', function () {
@@ -411,26 +469,26 @@
     const numberEl = document.querySelector('.predict__number');
     const judgesEl = document.querySelector('.predict__judges');
 
-    let current = 1; // значения от 1 до 12, 13 — "судді"
+    currentBet = 1; // 1-12 + 13 (судді)
 
     function updateDisplay() {
-        if (current === 13) {
+        if (currentBet === 13) {
             numberEl.classList.add('hide');
             judgesEl.classList.remove('hide');
         } else {
-            numberEl.textContent = current;
+            numberEl.textContent = currentBet;
             numberEl.classList.remove('hide');
             judgesEl.classList.add('hide');
         }
     }
 
     plusBtn.addEventListener('click', () => {
-        current = current === 13 ? 1 : current + 1;
+        currentBet = currentBet === 13 ? 1 : currentBet+ 1;
         updateDisplay();
     });
 
     minusBtn.addEventListener('click', () => {
-        current = current === 1 ? 13 : current - 1;
+        currentBet = currentBet === 1 ? 13 : currentBet- 1;
         updateDisplay();
     });
 
@@ -451,6 +509,35 @@
             });
         }
     });
+
+    let isRequestInProgress;
+    function placeBet(bet) {
+            console.log("клік")
+
+                if (!userId) {
+                    return;
+                }
+
+                if (isRequestInProgress) {
+                    return
+                }
+                isRequestInProgress = true;
+                request('/bet', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        userid: userId,
+                        team: currentBet,
+                    })
+                }).then(res => {
+                    isRequestInProgress = false;
+                    refreshBetInfo(userId);
+                    renderUsers();
+                }).catch(e => {
+                    isRequestInProgress = false;
+                    (error => console.error('Error placing bet:', error));
+                });
+    }
+
 
     // TEST
     document.querySelector('.dark-btn').addEventListener('click', () => {
