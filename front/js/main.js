@@ -16,7 +16,6 @@
     const mainPage = document.querySelector(".fav-page"),
         currentDate = new Date(),
         // currentDate =  new Date("2026-07-19T23:29:59"),
-        tableBody = document.querySelector(".table__body"),
         unauthMsgs = document.querySelectorAll('.unauth-msg'),
         playBtn = document.querySelectorAll('.play-btn'),
         scrollPartBtn = document.querySelectorAll('.scroll-part-btn'),
@@ -29,9 +28,7 @@
         predictBtn = document.querySelector('.btn-predictJud'),
         confirmBtn = document.querySelector('.btn-confirmed'),
         last = document.querySelector('.predict__left-last.number'),
-        judges = document.querySelector('.predict__left-last.judges'),
-        confirmed = document.querySelector('.predict__left-result.confirmed'),
-        unconfirmed = document.querySelector('.predict__left-result.unconfirmed');
+        judges = document.querySelector('.predict__left-last.judges');
 
 
     const ukLeng = document.querySelector('#ukLeng');
@@ -46,8 +43,7 @@
 
     let currentBet; 
     
-    // let locale = "uk"
-    let locale = sessionStorage.getItem("locale") || "uk"
+    let locale = "uk"
 
     if (ukLeng) locale = 'uk';
     if (enLeng) locale = 'en';
@@ -59,8 +55,7 @@
     let i18nData = {};
     const translateState = true;
 
-    let userId =  Number(sessionStorage.getItem("userId")) || null
-    // let userId = null;
+    let userId = null;
 
 
     const request = function (link, extraOptions) {
@@ -268,13 +263,11 @@
     function displayUser(user, isCurrentUser, table) {
         const row = document.createElement('div');
         row.classList.add('table__row');
-        console.log(isCurrentUser)
 
         if (isCurrentUser) {
             row.classList.add('you');
 
             updateLastPrediction(user.userid);
-            console.log(user.userid);
         }
 
         const prediction = Number(user.team) === 13
@@ -316,8 +309,6 @@
                         scoreDiv.innerHTML = `${data.team}`;
                     }
                 }
-
-                console.log("updateLastPrediction work");
 
                 const unconfirmedItem = document.querySelector(".predict__left-result.unconfirmed");
                 const confirmedItem = document.querySelector(".predict__left-result.confirmed");
@@ -450,61 +441,5 @@
                     }, 1000)
                 })
     }
-
-
-    // TEST
-    document.querySelector('.dark-btn').addEventListener('click', () => {
-        document.body.classList.toggle('dark');
-    });
-
-    const lngBtn = document.querySelector(".lng-btn")
-    const authBtn = document.querySelector(".auth-btn")
-
-    lngBtn.addEventListener("click", () => {
-        if (sessionStorage.getItem("locale")) {
-            sessionStorage.removeItem("locale");
-        } else {
-            sessionStorage.setItem("locale", "en");
-        }
-        window.location.reload();
-    });
-
-    authBtn.addEventListener("click", () =>{
-        if(userId){
-            sessionStorage.removeItem("userId")
-        }else{
-            sessionStorage.setItem("userId", "00000004")
-        }
-        window.location.reload()
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const button = document.querySelector('.btn-predictNum');
-
-        if (button && scoreDiv) {
-            button.addEventListener('click', function () {
-                scoreDiv.textContent = '1';
-            });
-        }
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
-
-        predictBtn.addEventListener('click', function () {
-            last.classList.toggle('hide');
-            judges.classList.toggle('hide');
-        });
-
-        confirmBtn.addEventListener('click', function () {
-            confirmed.classList.toggle('hide');
-            unconfirmed.classList.toggle('hide');
-        });
-    });
-
-    document.querySelector('.btn-end').addEventListener('click', function () {
-        document.querySelectorAll('.btn, .predict__minus, .predict__plus').forEach(function (el) {
-            el.classList.toggle('_lock');
-        });
-    });
 
 })();

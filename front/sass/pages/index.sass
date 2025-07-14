@@ -16,32 +16,6 @@ body
   & > *
     font-family: inherit
 
-//test
-.menu-btn
-  position: fixed
-  top: 0
-  left: 0
-  z-index: 20
-  width: fit-content
-  background: white
-  padding: 3px
-
-.menu-test
-  position: fixed
-  left: 0
-  top: 25px
-  z-index: 20
-  display: flex
-  gap: 2px
-  flex-direction: column
-  & > button
-    width: fit-content
-    background: white
-    color: black
-    padding: 2px
-    font-family: inherit
-    border-radius: 2px
-
 // loader
 .spinner-overlay
   position: absolute
@@ -58,7 +32,7 @@ body
 .spinner
   width: 60px
   height: 60px
-  background: url("../img/loader.svg") no-repeat 0 0/contain
+  background: url("https://fav-prom.com/html/champion-challenge/img/loader.svg") no-repeat 0 0/contain
   animation: scale .7s alternate infinite
 
 .fav-page.loading
@@ -79,7 +53,7 @@ body
     height: 68px
     padding: 3px 10px 4px 10px
     width: max-content
-    background: url('../img/bnt-bg-desk.jpg') no-repeat 50% 50%/cover
+    background: url('https://fav-prom.com/html/champion-challenge/img/bnt-bg-desk.jpg') no-repeat 50% 50%/cover
     transition: background .4s ease-in-out
     cursor: pointer
     background-size: 100% 100%
@@ -95,7 +69,7 @@ body
       filter: contrast(0.6)
     &:hover
       cursor: pointer
-      background: url('../img/bnt-bg-desk-hover.jpg') no-repeat 50% 50%/cover
+      background: url('https://fav-prom.com/html/champion-challenge/img/bnt-bg-desk-hover.jpg') no-repeat 50% 50%/cover
       background-size: 100% 100%
   .wrapp
     width: 1600px
@@ -108,7 +82,7 @@ body
   .welcome
     position: relative
     width: 100%
-    background: url('../img/welcome/welcome-bg.jpg') no-repeat center top
+    background: url('https://fav-prom.com/html/champion-challenge/img/welcome/welcome-bg.jpg') no-repeat center top
     background-size: auto 902px
     margin-bottom: 60px
     &__title
@@ -136,12 +110,12 @@ body
       top: 705px
       background: linear-gradient(0deg, #01013E 0%, rgba(1, 1, 62, 0.00) 100%)
     .wrapp
-      background: url('../img/welcome/welcome-desk.jpg') no-repeat center top
+      background: url('https://fav-prom.com/html/champion-challenge/img/welcome/welcome-desk.jpg') no-repeat center top
       background-size: auto 902px
       @media screen and (max-width: 1050px)
-        background: url('../img/welcome/welcome-tab.jpg') no-repeat 50% 0/cover
+        background: url('https://fav-prom.com/html/champion-challenge/img/welcome/welcome-tab.jpg') no-repeat 50% 0/cover
       @media screen and (max-width: 600px)
-        background: url('../img/welcome/welcome-mob.png') no-repeat 50% 50%/cover
+        background: url('https://fav-prom.com/html/champion-challenge/img/welcome/welcome-mob.png') no-repeat 50% 50%/cover
     &__block
       margin-top: 94px
       margin-right: 250px
@@ -219,7 +193,7 @@ body
       text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.40)
       letter-spacing: 1.28px
       user-select: none
-      background: url('../img/drop-bg-desk.png') no-repeat 50% 50%/cover
+      background: url('https://fav-prom.com/html/champion-challenge/img/drop-bg-desk.png') no-repeat 50% 50%/cover
       background-size: 100% 100%
       @media screen and (max-width: 600px)
         font-size: 14px
@@ -229,7 +203,7 @@ body
         display: block
         min-width: 22px
         height: 22px
-        background: url("../img/arrow.png") no-repeat 0 0/contain
+        background: url("https://fav-prom.com/html/champion-challenge/img/arrow.png") no-repeat 0 0/contain
         order: 2
         margin-left: auto
         margin-top: 10px
@@ -240,7 +214,7 @@ body
     &-txt
       width: 560px
       min-height: 433px
-      background: url('../img/drop-txt-bg.png') no-repeat 50% 50%/cover
+      background: url('https://fav-prom.com/html/champion-challenge/img/drop-txt-bg.png') no-repeat 50% 50%/cover
       background-color: $blue-dropp
       background-size: 100% 100%
       padding: 30px 23px 36px
@@ -308,7 +282,7 @@ body
   .predict
     width: 100%
     position: relative
-    background: url('../img/predict/predict-bg.jpg') no-repeat center top
+    background: url('https://fav-prom.com/html/champion-challenge/img/predict/predict-bg.jpg') no-repeat center top
     background-size: auto 772px
     &:before
       z-index: 2
@@ -332,12 +306,12 @@ body
       position: relative
       overflow: hidden
       align-items: center
-      background: url('../img/predict/predict-desk.jpg') no-repeat center top
+      background: url('https://fav-prom.com/html/champion-challenge/img/predict/predict-desk.jpg') no-repeat center top
       background-size: auto 780px
       @media screen and (max-width: 1050px)
-        background: url('../img/predict/predict-tab.jpg') no-repeat center top
+        background: url('https://fav-prom.com/html/champion-challenge/img/predict/predict-tab.jpg') no-repeat center top
       @media screen and (max-width: 649px)
-        background: url('../img/predict/predict-mob.png') no-repeat center top
+        background: url('https://fav-prom.com/html/champion-challenge/img/predict/predict-mob.png') no-repeat center top
       &__cont
           margin-top: 70px
           margin-bottom: 95px
@@ -381,17 +355,17 @@ body
         &:nth-child(1)
           width: 508px
           height: 203px
-          background: url('../img/predict/forecast-bg-desk.png') no-repeat 100% 0/contain
+          background: url('https://fav-prom.com/html/champion-challenge/img/predict/forecast-bg-desk.png') no-repeat 100% 0/contain
           @media screen and (max-width: 1050px)
-            background: url('../img/predict/forecast-bg-tab.png') no-repeat 100% 0/contain
+            background: url('https://fav-prom.com/html/champion-challenge/img/predict/forecast-bg-tab.png') no-repeat 100% 0/contain
           margin-bottom: 90px
         &:nth-child(2)
-          background: url('../img/predict/last-forec-bg-desk.jpg') no-repeat 100% 0/cover
+          background: url('https://fav-prom.com/html/champion-challenge/img/predict/last-forec-bg-desk.jpg') no-repeat 100% 0/cover
           background-size: 100% 100%
           @media screen and (max-width: 1050px)
-            background: url('../img/predict/last-forec-bg-tab.jpg') no-repeat 50% 50%/cover
+            background: url('https://fav-prom.com/html/champion-challenge/img/predict/last-forec-bg-tab.jpg') no-repeat 50% 50%/cover
           @media screen and (max-width: 600px)
-            background: url('../img/predict/last-forec-bg-mob.jpg') no-repeat 50% 50%/cover
+            background: url('https://fav-prom.com/html/champion-challenge/img/predict/last-forec-bg-mob.jpg') no-repeat 50% 50%/cover
       &-title
         font-family: $font-favbet-display-medium
         font-size: 24px
@@ -409,7 +383,7 @@ body
           left: 0
           transform: translateX(-100%) translateY(-50%)
           top: 49%
-          background: url('../img/predict/red-line-l.png') no-repeat 50% 50%/cover
+          background: url('https://fav-prom.com/html/champion-challenge/img/predict/red-line-l.png') no-repeat 50% 50%/cover
           animation: pulseOpacity 1.2s ease-in-out infinite alternate
         &:after
           content: ''
@@ -419,7 +393,7 @@ body
           right: 0
           transform: translateX(100%) translateY(-50%)
           top: 49%
-          background: url('../img/predict/red-line-r.png') no-repeat 50% 50%/cover
+          background: url('https://fav-prom.com/html/champion-challenge/img/predict/red-line-r.png') no-repeat 50% 50%/cover
           animation: pulseOpacity 1.2s ease-in-out infinite alternate
       &-block
         display: flex
@@ -469,14 +443,14 @@ body
           pointer-events: none
           filter: contrast(0.6)
     &__plus
-      background: url('../img/plus.jpg') no-repeat 50% 50%/cover
+      background: url('https://fav-prom.com/html/champion-challenge/img/plus.jpg') no-repeat 50% 50%/cover
       &:active,
         &:hover
-          background: url('../img/plus-active.jpg') no-repeat 50% 50%/cover
+          background: url('https://fav-prom.com/html/champion-challenge/img/plus-active.jpg') no-repeat 50% 50%/cover
     &__minus
-      background: url('../img/minus.jpg') no-repeat 50% 50%/cover
+      background: url('https://fav-prom.com/html/champion-challenge/img/minus.jpg') no-repeat 50% 50%/cover
       &:hover
-        background: url('../img/minus-active.jpg') no-repeat 50% 50%/cover
+        background: url('https://fav-prom.com/html/champion-challenge/img/minus-active.jpg') no-repeat 50% 50%/cover
     &__number,
       &__judges
         margin: -2px 44px 0
@@ -504,7 +478,7 @@ body
         width: 2500px
         //height: 630px
         height: 650px
-        background: url('../img/smoke-blue.png') no-repeat 50% 50%/cover
+        background: url('https://fav-prom.com/html/champion-challenge/img/smoke-blue.png') no-repeat 50% 50%/cover
         position: absolute
         right: -616px
         //bottom: -270px
@@ -530,7 +504,7 @@ body
   .results
     width: 100%
     position: relative
-    background: url('../img/welcome/welcome-bg.jpg') no-repeat center top
+    background: url('https://fav-prom.com/html/champion-challenge/img/welcome/welcome-bg.jpg') no-repeat center top
     background-size: auto 902px
     &:before
       z-index: 2
@@ -555,10 +529,10 @@ body
       position: relative
       overflow: hidden
       align-items: center
-      background: url('../img/results/results-desk.jpg') no-repeat center top
+      background: url('https://fav-prom.com/html/champion-challenge/img/results/results-desk.jpg') no-repeat center top
       background-size: auto 1049px
       @media screen and (max-width: 1050px)
-        background: url('../img/results/results-tab.jpg') no-repeat 50% 56px
+        background: url('https://fav-prom.com/html/champion-challenge/img/results/results-tab.jpg') no-repeat 50% 56px
       @media screen and (max-width: 600px)
         background: none
     &__title
@@ -578,13 +552,13 @@ body
     min-height: 874px
     height: 874px
     z-index: 3
-    background: url('../img/results/table-bg-desk.jpg') no-repeat center top
+    background: url('https://fav-prom.com/html/champion-challenge/img/results/table-bg-desk.jpg') no-repeat center top
     background-size: 100% 100%
     @media screen and (max-width: 1050px)
-      background: url('../img/results/table-bg-tab.png') no-repeat center top
+      background: url('https://fav-prom.com/html/champion-challenge/img/results/table-bg-tab.png') no-repeat center top
       background-size: 100% 100%
     @media screen and (max-width: 600px)
-      background: url('../img/results/table-bg-mob.png') no-repeat center top
+      background: url('https://fav-prom.com/html/champion-challenge/img/results/table-bg-mob.png') no-repeat center top
       background-size: 100% 100%
     &__head
       width: 100%
@@ -614,7 +588,7 @@ body
               right: 0
               width: 3px
               height: 763px
-              background: url('../img/results/red-table-line.png') no-repeat center top
+              background: url('https://fav-prom.com/html/champion-challenge/img/results/red-table-line.png') no-repeat center top
               background-size: 100% 100%
           &:nth-child(1)
             width: 170px
@@ -656,7 +630,7 @@ body
             width: 97%
             padding-left: 7px
             background: $white
-            background: url('../img/results/row-you2.png') no-repeat center top
+            background: url('https://fav-prom.com/html/champion-challenge/img/results/row-you2.png') no-repeat center top
             background-size: 100% 100%
             .you
               width: 50px
@@ -669,7 +643,7 @@ body
               letter-spacing: 0.4px
               position: absolute
               left: 118px
-              background: url('../img/results/you.png') no-repeat center top
+              background: url('https://fav-prom.com/html/champion-challenge/img/results/you.png') no-repeat center top
               background-size: 100% 100%
               text-transform: uppercase
           &-item
@@ -726,10 +700,10 @@ body
       summary
         font-size: 24px
         letter-spacing: 1.2px
-        background: url("../img/rules-bg-desk.png") no-repeat 50% 50% / cover
+        background: url("https://fav-prom.com/html/champion-challenge/img/rules-bg-desk.png") no-repeat 50% 50% / cover
         background-size: 100% 100%
         @media screen and (max-width: 600px)
-          background: url("../img/rules-bg-mob.png") no-repeat 50% 50% / cover
+          background: url("https://fav-prom.com/html/champion-challenge/img/rules-bg-mob.png") no-repeat 50% 50% / cover
           background-size: 100% 100%
       &-txt
         width: 100%
