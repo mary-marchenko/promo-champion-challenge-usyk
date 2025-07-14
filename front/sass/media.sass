@@ -362,6 +362,9 @@
             margin-top: -4px
             min-height: 451px
             max-height: 451px
+            &.unauth
+              min-height: 489px
+              max-height: 489px
           .table
             &__row
               &.you
@@ -369,9 +372,9 @@
                 padding-left: 2px
                 .table__row-item
                   &:nth-child(3)
-                    padding-left: 1px
+                    padding-left: 6px
                   &:nth-child(4)
-                    padding-left: 7px
+                    padding-left: 5px
                 .you
                   font-size: 16px
                   letter-spacing: 0.32px
@@ -553,7 +556,7 @@
       &:after
         animation: moveLeftRightMob 8s ease-in-out infinite alternate
         top: 336px
-        width: 122%
+        width: 127%
         height: 370px
         left: -13px
         background: url('../img/smoke-red.png') no-repeat 50% 100%
@@ -621,7 +624,7 @@
           line-height: 80px
           span
             font-size: 22px
-            line-height: 72px
+            line-height: 50px
         &-bottom
           width: 320px
           left: -24px
@@ -773,6 +776,9 @@
             margin-top: -4px
             min-height: 421px
             max-height: 421px
+            &.unauth
+              min-height: 470px
+              max-height: 470px
           .table__row
             &.you
               width: 92%
@@ -780,6 +786,8 @@
                 padding-top: 6px
                 &:nth-child(1)
                   padding-left: 2px
+                &:nth-child(4)
+                  padding-left: 1px
               .you
                 left: 5px
                 bottom: 10px
@@ -893,6 +901,9 @@
       &__left
         &:before
           top: 17px
+    .results
+      &:after
+        top: 345px
 
   @media screen and (max-width: 380px)
     .welcome
@@ -907,6 +918,9 @@
       .wrapp
         background-size: auto 459px
         background-position: center calc(50% - 150px)
+    .results
+      &:after
+        top: 336px
 
   @media screen and (max-width: 374px)
     .results

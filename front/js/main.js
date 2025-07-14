@@ -2,13 +2,8 @@
 
     const apiURL = 'https://fav-prom.com/api_champion_challenge_ua'
 
-    const promoStartDate = new Date("2025-07-15T12:00:00");
     const promoEndDate = new Date("2025-07-19T23:29:59");
 
-    setInterval(() => {
-        currentDate = new Date(); // Оновити поточну дату
-        checkAndLockPromo(currentDate, promoEndDate)
-    }, 600000); // Оновлювати кожні 10 хв
 
     function checkAndLockPromo(currentDate, promoEndDate) {
         if (currentDate >= promoEndDate) {
@@ -18,17 +13,26 @@
         }
     }
 
-
     const mainPage = document.querySelector(".fav-page"),
+        currentDate = new Date(),
+        // currentDate =  new Date("2026-07-19T23:29:59"),
         tableBody = document.querySelector(".table__body"),
         unauthMsgs = document.querySelectorAll('.unauth-msg'),
-        // participateBtns = document.querySelectorAll('.part-btn'),
         playBtn = document.querySelectorAll('.play-btn'),
         scrollPartBtn = document.querySelectorAll('.scroll-part-btn'),
         placeBetBtn = document.querySelector('.btn-join'),
         loader = document.querySelector(".spinner-overlay"),
         resultsTable = document.querySelector('#table'),
-        resultsTableOther = document.querySelector('#tableOther')
+        unauthTable = document.querySelector('.table__body-scroll'),
+        resultsTableOther = document.querySelector('#tableOther'),
+        scoreDiv = document.querySelector('.predict__left-counter'),
+        predictBtn = document.querySelector('.btn-predictJud'),
+        confirmBtn = document.querySelector('.btn-confirmed'),
+        last = document.querySelector('.predict__left-last.number'),
+        judges = document.querySelector('.predict__left-last.judges'),
+        confirmed = document.querySelector('.predict__left-result.confirmed'),
+        unconfirmed = document.querySelector('.predict__left-result.unconfirmed');
+
 
     const ukLeng = document.querySelector('#ukLeng');
     const enLeng = document.querySelector('#enLeng');
@@ -55,7 +59,7 @@
     let i18nData = {};
     const translateState = true;
 
-    let userId =  sessionStorage.getItem("userId") || null
+    let userId =  Number(sessionStorage.getItem("userId")) || null
     // let userId = null;
 
 
@@ -111,6 +115,7 @@
         function quickCheckAndRender() {
             checkUserAuth();
             renderUsers();
+            checkAndLockPromo(currentDate, promoEndDate),
             placeBetBtn.addEventListener('click', (e) => {
                 e.preventDefault();
 
@@ -118,7 +123,7 @@
                     currentBet = new Bet(userId, matchNumber);
                 }
 
-                placeBet(currentBet);
+                placeBet(placeBetBtn);
             });
         }
 
@@ -171,10 +176,12 @@
                 hideElements(playBtn);
                 showElements(unauthMsgs);
                 hideLoader();
+                unauthTable.classList.add("unauth");
                 return Promise.resolve(false);
             }
 
             hideElements(unauthMsgs);
+            unauthTable.classList.remove("unauth")
 
             return request(`/favuser/${userId}?nocache=1`).then(res => {
                 if (res.userid) {
@@ -258,104 +265,6 @@
         });
     }
 
-    // function displayUser(user, isCurrentUser, table) {
-    //     const additionalUserRow = document.createElement('div');
-    //     additionalUserRow.classList.add('table__row');
-    //     if (isCurrentUser) {
-    //         updateLastPrediction(user);
-    //         additionalUserRow.classList.add('you');
-    //     }
-    //
-    //     const prediction = user.score == 13 ? i18nData[judgesDecision] : current;
-    //
-    //     additionalUserRow.innerHTML = `
-    //                     <div class="table__row-item">${user.userid} ${isCurrentUser ? '<span data-translate="you"></span>' : ''}</div>
-    //                     <div class="table__row-item">${formatDateString(user.lastForecast)}</div>
-    //                     <div class="table__row-item">${prediction}</div>
-    //                     <div class="table__row-item">***</div>
-    //                 `;
-    //     const userIdDisplay = isCurrentUser ? user.userid : maskUserId(user.userid);
-    //     table.append(additionalUserRow);
-    //
-    //     function updateLastPrediction(data) {
-    //
-    //         const scoreDiv = document.querySelector('.predict__left-counter');
-    //         scoreDiv.innerHTML = `${data.team}`;
-    //
-    //         const unconfirmedItem = document.querySelector(".predict__left-result.unconfirmed");
-    //         const confirmedItem = document.querySelector(".predict__left-result.confirmed");
-    //
-    //         const isConfirmed = (data.betConfirmed);
-    //
-    //         confirmedItem.classList.toggle("hide", !isConfirmed);
-    //         unconfirmedItem.classList.toggle("hide", isConfirmed);
-    //     }
-    //
-    // }
-
-    // function displayUser(user, isCurrentUser) {
-    //     let table;
-    //
-    //     if (isCurrentUser) {
-    //         table = document.querySelector('#tableOther');
-    //     } else {
-    //         const tableBody = document.querySelector('#table');
-    //
-    //
-    //         let scrollContainer = tableBody.querySelector('.table__body-scroll');
-    //         if (!scrollContainer) {
-    //             scrollContainer = document.createElement('div');
-    //             scrollContainer.classList.add('table__body-scroll');
-    //             tableBody.appendChild(scrollContainer);
-    //         }
-    //
-    //         table = scrollContainer;
-    //     }
-    //
-    //     const row = document.createElement('div');
-    //     row.classList.add('table__row');
-    //     if (isCurrentUser) row.classList.add('you');
-    //
-    //     const prediction = Number(user.team) === 13
-    //         ? i18nData["judgesDecision"]
-    //         : user.team;
-    //         console.log(i18nData["judgesDecision"])
-    //
-    //     const userIdDisplay = isCurrentUser
-    //         ? `${user.userid} <span class="you" data-translate="you"></span>`
-    //         : maskUserId(user.userid);
-    //
-    //     row.innerHTML = `
-    //     <div class="table__row-item">${userIdDisplay}</div>
-    //     <div class="table__row-item">${formatDateString(user.lastForecast)}</div>
-    //     <div class="table__row-item">${prediction}</div>
-    //     <div class="table__row-item">****</div>
-    // `;
-    //
-    //     table.appendChild(row);
-    //
-    //     if (isCurrentUser) {
-    //         updateLastPrediction(user);
-    //     }
-    //
-    //     function maskUserId(userId) {
-    //         return '**' + userId.toString().slice(2);
-    //     }
-    //
-    //     function updateLastPrediction(data) {
-    //         const scoreDiv = document.querySelector('.predict__left-counter');
-    //         if (scoreDiv) scoreDiv.innerHTML = `${data.team}`;
-    //         console.log(`${data.team}`);
-    //
-    //         const unconfirmedItem = document.querySelector(".predict__left-result.unconfirmed");
-    //         const confirmedItem = document.querySelector(".predict__left-result.confirmed");
-    //
-    //         const isConfirmed = data.betConfirmed;
-    //
-    //         confirmedItem?.classList.toggle("hide", !isConfirmed);
-    //         unconfirmedItem?.classList.toggle("hide", isConfirmed);
-    //     }
-    // }
     function displayUser(user, isCurrentUser, table) {
         const row = document.createElement('div');
         row.classList.add('table__row');
@@ -364,20 +273,8 @@
         if (isCurrentUser) {
             row.classList.add('you');
 
-            updateLastPrediction(user);
-        } else {
-            const tableBody = document.querySelector('#table');
-            if (!tableBody) return;
-
-            let scrollContainer = tableBody.querySelector('.table__body-scroll');
-
-            if (!scrollContainer) {
-                scrollContainer = document.createElement('div');
-                scrollContainer.classList.add('table__body-scroll');
-                tableBody.appendChild(scrollContainer);
-            }
-
-            table = scrollContainer;
+            updateLastPrediction(user.userid);
+            console.log(user.userid);
         }
 
         const prediction = Number(user.team) === 13
@@ -392,7 +289,9 @@
         <div class="table__row-item">${userIdDisplay}</div>
         <div class="table__row-item">${formatDateString(user.lastForecast)}</div>
         <div class="table__row-item">${prediction}</div>
-        <div class="table__row-item">****</div>
+        ${typeof user.winner === 'boolean'
+            ? `<div class="table__row-item" data-translate="${user.winner ? 'prize' : 'noWinners'}">*****</div>`
+            : `<div class="table__row-item">*****</div>`}
         `;
 
         table?.appendChild(row);
@@ -402,31 +301,39 @@
         return '**' + userId.toString().slice(2);
     }
 
-    function updateLastPrediction(user) {
-        request(`/users/`)
-            .then(data => {
-                const scoreDiv = document.querySelector('.predict__left-counter');
+    function updateLastPrediction(userid) {
+        request(`/favuser/${userId}`, {
+            method: 'GET'
+        }).then(data => {
+                // const scoreDiv = document.querySelector('.predict__left-counter');
                 if (scoreDiv) {
-                    scoreDiv.innerHTML = `${data.team}`;
+                    if (data.team === 13) {
+                        last.classList.add('hide')
+                        judges.classList.remove('hide')
+                    } else {
+                        judges.classList.add('hide')
+                        last.classList.remove('hide')
+                        scoreDiv.innerHTML = `${data.team}`;
+                    }
                 }
 
-                console.log(data.team)
-                console.log("updateLastPrediction work")
+                console.log("updateLastPrediction work");
 
                 const unconfirmedItem = document.querySelector(".predict__left-result.unconfirmed");
                 const confirmedItem = document.querySelector(".predict__left-result.confirmed");
 
-                const isConfirmed = data.betConfirmed;
+                const isConfirmed = !!data.betConfirmed;
+                console.log(isConfirmed + " це стосовно ставки")
 
                 confirmedItem?.classList.toggle("hide", !isConfirmed);
                 unconfirmedItem?.classList.toggle("hide", isConfirmed);
-            });
-
+        }).catch(error => {
+            console.error('Error:', error);
+        });
     }
 
     function formatDateString(dateString) {
         const date = new Date(dateString);
-
         const day = date.getDate().toString().padStart(2, '0');
         const month = (date.getMonth() + 1).toString().padStart(2, '0');
         const year = date.getFullYear();
@@ -511,9 +418,7 @@
     });
 
     let isRequestInProgress;
-    function placeBet(bet) {
-            console.log("клік")
-
+    function placeBet(btn) {
                 if (!userId) {
                     return;
                 }
@@ -530,12 +435,20 @@
                     })
                 }).then(res => {
                     isRequestInProgress = false;
-                    refreshBetInfo(userId);
-                    renderUsers();
-                }).catch(e => {
-                    isRequestInProgress = false;
-                    (error => console.error('Error placing bet:', error));
-                });
+                    // renderUsers();
+                    const btnTxt = btn.querySelector('.btn-txt')
+                    toggleClasses([btnTxt], "loader")
+                    toggleTranslates([btnTxt], "loader")
+                    setTimeout(() =>{
+                        toggleTranslates([btnTxt], "loader_ready")
+                        toggleClasses([btnTxt], "loader")
+                    }, 500)
+                    setTimeout(()=>{
+                        toggleTranslates([btnTxt], "partBtn")
+                        updateLastPrediction(userId);
+                        renderUsers()
+                    }, 1000)
+                })
     }
 
 
@@ -560,30 +473,22 @@
         if(userId){
             sessionStorage.removeItem("userId")
         }else{
-            sessionStorage.setItem("userId", "777")
+            sessionStorage.setItem("userId", "00000004")
         }
         window.location.reload()
     });
 
     document.addEventListener('DOMContentLoaded', function () {
         const button = document.querySelector('.btn-predictNum');
-        const counter = document.querySelector('.predict__left-counter');
 
-        if (button && counter) {
+        if (button && scoreDiv) {
             button.addEventListener('click', function () {
-                counter.textContent = '1';
+                scoreDiv.textContent = '1';
             });
         }
     });
 
     document.addEventListener('DOMContentLoaded', function () {
-        const predictBtn = document.querySelector('.btn-predictJud');
-        const confirmBtn = document.querySelector('.btn-confirmed');
-        const last = document.querySelector('.predict__left-last.number');
-        const judges = document.querySelector('.predict__left-last.judges');
-        const confermd = document.querySelector('.predict__left-result.confirmed');
-        const unconfermd = document.querySelector('.predict__left-result.unconfirmed');
-
 
         predictBtn.addEventListener('click', function () {
             last.classList.toggle('hide');
@@ -591,8 +496,8 @@
         });
 
         confirmBtn.addEventListener('click', function () {
-            confermd.classList.toggle('hide');
-            unconfermd.classList.toggle('hide');
+            confirmed.classList.toggle('hide');
+            unconfirmed.classList.toggle('hide');
         });
     });
 

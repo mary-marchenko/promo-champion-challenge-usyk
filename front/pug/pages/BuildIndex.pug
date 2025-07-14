@@ -53,12 +53,12 @@ button.menu-btn menu
                                 .predict__judges.hide(data-translate="judgesDecision") За рішенням суддів
                                 button.predict__plus &#8203;
                             a.welcome__btn.btn.unauth-msg(data-translate="signBtn" href="/login/" data-promo="champion_challenge_usyk_15072025" data-button="authorization_content") Авторизуйся
-                            buttom.welcome__btn.btn.btn-join.hide(data-translate="partBtn" data-promo="champion_challenge_usyk_15072025" data-button="placeBet_content") Зробити прогноз
+                            buttom.welcome__btn.btn.btn-join.hide(data-promo="champion_challenge_usyk_15072025" data-button="placeBet_content") #[span.btn-txt(data-translate="partBtn") Зробити прогноз]
                         .predict__left-container
                             .predict__left-title(data-translate="lastPredict") останній прогноз
                             .predict__left-last.number
                                 .predict__left-fighter(data-translate="Usyk") Олександр Усик
-                                .predict__left-counter 12
+                                .predict__left-counter -
                                 .predict__left-fighter(data-translate="Dubois") Даниель Дюбуа
                             .predict__left-last.judges.hide(data-translate="judgesDecision") За рішенням суддів
                             .predict__left-result.confirmed.hide(data-translate="confirmed") Прогноз підтверджено ставкою
@@ -98,7 +98,7 @@ button.menu-btn menu
                         .table__row-item(data-translate="tablePredict") Прогноз
                         .table__row-item(data-translate="tablePrize") Приз*
                 .table__body
-                    .table__body-scroll#table
+                    .table__body-scroll.unauth#table
                         .table__row
                             .table__row-item 0000067
                             .table__row-item 08.08.2023 20:00
