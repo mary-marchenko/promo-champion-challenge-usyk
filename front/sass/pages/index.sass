@@ -1,7 +1,35 @@
 @import "../var"
 
+//test
+.menu-btn
+  position: fixed
+  top: 0
+  left: 0
+  z-index: 20
+  width: fit-content
+  background: white
+  padding: 3px
+
+.menu-test
+  position: fixed
+  left: 0
+  top: 25px
+  z-index: 20
+  display: flex
+  gap: 2px
+  flex-direction: column
+  & > button
+    width: fit-content
+    background: white
+    color: black
+    padding: 2px
+    font-family: inherit
+    border-radius: 2px
+
 .hide
   display: none !important
+._opacity
+  opacity: 0
 
 body.light
   background: $blue
@@ -64,6 +92,8 @@ body
     letter-spacing: 1.12px
     text-transform: uppercase
     z-index: 5
+    span
+      font-family: $font-favbet-display-bold
     &._lock
       pointer-events: none
       filter: contrast(0.6)
@@ -351,7 +381,7 @@ body
         display: flex
         flex-direction: column
         align-items: center
-        justify-content: space-between
+        justify-content: flex-start
         &:nth-child(1)
           width: 508px
           height: 203px
@@ -360,6 +390,7 @@ body
             background: url('https://fav-prom.com/html/champion-challenge/img/predict/forecast-bg-tab.png') no-repeat 100% 0/contain
           margin-bottom: 90px
         &:nth-child(2)
+          height: 177px
           background: url('https://fav-prom.com/html/champion-challenge/img/predict/last-forec-bg-desk.jpg') no-repeat 100% 0/cover
           background-size: 100% 100%
           @media screen and (max-width: 1050px)
@@ -399,6 +430,9 @@ body
         display: flex
         align-items: center
         margin-bottom: 30px
+        height: 96px
+        width: 317px
+        justify-content: space-between
       .btn
         width: 100%
         position: absolute
@@ -465,11 +499,15 @@ body
         color: $white
     &__judges
       font-family: $font-favbet-display-normbold
+      position: absolute
+      left: 50%
+      margin: 0
+      transform: translateX(-50%)
       font-size: 22px
-      line-height: 30px
+      line-height: 31px
       width: 137px
-      margin: 0 10px 0
-      padding-top: 5px
+      //margin: 3px 10px 0
+      //padding-top: 5px
     &__right
       display: flex
       position: relative
@@ -605,8 +643,8 @@ body
       align-items: center
       &-scroll
         margin-top: 5px
-        min-height: 719px
-        max-height: 719px
+        min-height: 715px
+        max-height: 715px
         width: 95%
         overflow-y: auto
         scrollbar-width: auto
@@ -617,8 +655,8 @@ body
           background: rgba(63, 150, 111, 0.40)
           width: 4px
         &.unauth
-          min-height: 771px
-          max-height: 771px
+          min-height: 765px
+          max-height: 765px
       .table
         &__row
           display: flex
@@ -642,7 +680,7 @@ body
               font-size: 20px
               letter-spacing: 0.4px
               position: absolute
-              left: 118px
+              left: 129px
               background: url('https://fav-prom.com/html/champion-challenge/img/results/you.png') no-repeat center top
               background-size: 100% 100%
               text-transform: uppercase

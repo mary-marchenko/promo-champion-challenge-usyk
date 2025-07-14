@@ -235,6 +235,9 @@
           &:before,
           &:after
             width: 90px
+        &-block
+          width: 208px
+          align-items: flex-start
         &-container
           &:nth-child(1)
             width: 321px
@@ -242,6 +245,7 @@
           &:nth-child(2)
             width: 321px
             height: 114px
+            justify-content: flex-start
             .predict__left-title
               margin-bottom: 10px
               &:before,
@@ -271,21 +275,22 @@
       &__minus,
       &__plus
         width: 56px
-        height: 48px
+        height: 45px
       &__number,
       &__judges
         width: 44px
         height: 55px
-        margin: 6px 27px 0
+        margin: 0 25px 0
         font-size: 68px
         letter-spacing: 1.36px
         line-height: 55px
         text-shadow: 0px 2.669px 6.673px rgba(0, 0, 0, 0.20)
       &__judges
-        width: 104px
-        font-size: 14px
-        line-height: 18px
-        margin: -2px -3px 8px
+        margin: 0
+        width: 95px
+        font-size: 13px
+        line-height: 16px
+        transform: translateX(-50%)
       &__right
         &:after
           height: 319px
@@ -358,13 +363,15 @@
                 width: 90px
         &__body
           width: 99%
+          &#tableOther
+            margin: -6px 0 6px
           &-scroll
             margin-top: -4px
-            min-height: 451px
-            max-height: 451px
+            min-height: 445px
+            max-height: 445px
             &.unauth
-              min-height: 489px
-              max-height: 489px
+              min-height: 483px
+              max-height: 483px
           .table
             &__row
               &.you
@@ -376,11 +383,11 @@
                   &:nth-child(4)
                     padding-left: 5px
                 .you
-                  font-size: 16px
+                  font-size: 14px
                   letter-spacing: 0.32px
-                  width: 38px
-                  height: 21px
-                  left: 60px
+                  width: 28px
+                  height: 17px
+                  left: 70px
       .bottom
         width: 500px
         margin-top: 20px
@@ -772,10 +779,12 @@
             &:nth-child(4)
               padding-right: 2px
         &__body
+          &#tableOther
+            margin: 0 0 6px
           &-scroll
             margin-top: -4px
-            min-height: 421px
-            max-height: 421px
+            min-height: 416px
+            max-height: 416px
             &.unauth
               min-height: 470px
               max-height: 470px
@@ -959,24 +968,3 @@
       .table
         transform: scale(0.85)
         margin-bottom: -80px
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

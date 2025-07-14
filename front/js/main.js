@@ -28,7 +28,13 @@
         predictBtn = document.querySelector('.btn-predictJud'),
         confirmBtn = document.querySelector('.btn-confirmed'),
         last = document.querySelector('.predict__left-last.number'),
-        judges = document.querySelector('.predict__left-last.judges');
+        judges = document.querySelector('.predict__left-last.judges'),
+        unconfirmedItem = document.querySelector(".predict__left-result.unconfirmed"),
+        confirmedItem = document.querySelector(".predict__left-result.confirmed"),
+        scrollBtn = document.querySelector('.scroll-part-btn'),
+        targetBlock = document.querySelector('.predict__content'),
+        target = document.querySelector('.predict__content'),
+        belt = document.querySelector('.predict__right-belt');
 
 
     const ukLeng = document.querySelector('#ukLeng');
@@ -43,7 +49,8 @@
 
     let currentBet; 
     
-    let locale = "uk"
+    // let locale = "uk"
+    let locale = sessionStorage.getItem("locale") || "uk"
 
     if (ukLeng) locale = 'uk';
     if (enLeng) locale = 'en';
@@ -55,7 +62,8 @@
     let i18nData = {};
     const translateState = true;
 
-    let userId = null;
+    // let userId = null;
+    let userId =  Number(sessionStorage.getItem("userId")) || null
 
 
     const request = function (link, extraOptions) {
@@ -120,6 +128,37 @@
 
                 placeBet(placeBetBtn);
             });
+            // scroll to
+            document.addEventListener("click", function () {
+                if (scrollBtn && targetBlock) {
+                    scrollBtn.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        targetBlock.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                    });
+                }
+            });
+
+            // anim belt
+            const screenWidth = window.innerWidth;
+            const thresholdValue = screenWidth <= 640 ? 0.3 : 0.9;
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        belt.classList.add('animate');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: thresholdValue
+            });
+
+            if (target) {
+                observer.observe(target);
+            }
         }
 
         const waitForUserId = new Promise((resolve) => {
@@ -172,11 +211,13 @@
                 showElements(unauthMsgs);
                 hideLoader();
                 unauthTable.classList.add("unauth");
+                unconfirmedItem.classList.add("hide");
+                confirmedItem.classList.add("hide");
                 return Promise.resolve(false);
             }
 
             hideElements(unauthMsgs);
-            unauthTable.classList.remove("unauth")
+            // unauthTable.classList.remove(".unauth")
 
             return request(`/favuser/${userId}?nocache=1`).then(res => {
                 if (res.userid) {
@@ -184,7 +225,10 @@
                     showElements(scrollPartBtn);
                     showElements([placeBetBtn]);
                     showElements(playBtn);
+                    unauthTable.classList.remove("unauth");
                 } else {
+                    unconfirmedItem.classList.add("hide");
+                    unauthTable.classList.add("unauth");
                     showElements(scrollPartBtn);
                     showElements([placeBetBtn]);
                     showElements(playBtn);
@@ -310,11 +354,9 @@
                     }
                 }
 
-                const unconfirmedItem = document.querySelector(".predict__left-result.unconfirmed");
-                const confirmedItem = document.querySelector(".predict__left-result.confirmed");
+                unauthTable.classList.remove("unauth");
 
                 const isConfirmed = !!data.betConfirmed;
-                console.log(isConfirmed + " це стосовно ставки")
 
                 confirmedItem?.classList.toggle("hide", !isConfirmed);
                 unconfirmedItem?.classList.toggle("hide", isConfirmed);
@@ -336,31 +378,6 @@
 
     loadTranslations().then(init)
 
-
-    // anim belt
-    document.addEventListener('DOMContentLoaded', function () {
-        const target = document.querySelector('.predict__content');
-        const belt = document.querySelector('.predict__right-belt');
-
-        const screenWidth = window.innerWidth;
-        const thresholdValue = screenWidth <= 640 ? 0.3 : 0.9;
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    belt.classList.add('animate');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: thresholdValue
-        });
-
-        if (target) {
-            observer.observe(target);
-        }
-    });
-
     // predict +-
     const minusBtn = document.querySelector('.predict__minus');
     const plusBtn = document.querySelector('.predict__plus');
@@ -372,11 +389,11 @@
     function updateDisplay() {
         if (currentBet === 13) {
             numberEl.classList.add('hide');
-            judgesEl.classList.remove('hide');
+            judgesEl.classList.remove('_opacity');
         } else {
             numberEl.textContent = currentBet;
             numberEl.classList.remove('hide');
-            judgesEl.classList.add('hide');
+            judgesEl.classList.add('_opacity');
         }
     }
 
@@ -391,22 +408,6 @@
     });
 
     updateDisplay();
-
-    // scroll to
-    document.addEventListener('DOMContentLoaded', function () {
-        const scrollBtn = document.querySelector('.scroll-part-btn');
-        const targetBlock = document.querySelector('.predict__content');
-
-        if (scrollBtn && targetBlock) {
-            scrollBtn.addEventListener('click', function (e) {
-                e.preventDefault();
-                targetBlock.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
-                });
-            });
-        }
-    });
 
     let isRequestInProgress;
     function placeBet(btn) {
@@ -441,5 +442,60 @@
                     }, 1000)
                 })
     }
+
+    // TEST
+    document.querySelector('.dark-btn').addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+    });
+
+    const lngBtn = document.querySelector(".lng-btn")
+    const authBtn = document.querySelector(".auth-btn")
+
+    lngBtn.addEventListener("click", () => {
+        if (sessionStorage.getItem("locale")) {
+            sessionStorage.removeItem("locale");
+        } else {
+            sessionStorage.setItem("locale", "en");
+        }
+        window.location.reload();
+    });
+
+    authBtn.addEventListener("click", () =>{
+        if(userId){
+            sessionStorage.removeItem("userId")
+        }else{
+            sessionStorage.setItem("userId", "567567567")
+        }
+        window.location.reload()
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const button = document.querySelector('.btn-predictNum');
+
+        if (button && scoreDiv) {
+            button.addEventListener('click', function () {
+                scoreDiv.textContent = '1';
+            });
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        predictBtn.addEventListener('click', function () {
+            last.classList.toggle('hide');
+            judges.classList.toggle('hide');
+        });
+
+        confirmBtn.addEventListener('click', function () {
+            confirmed.classList.toggle('hide');
+            unconfirmed.classList.toggle('hide');
+        });
+    });
+
+    document.querySelector('.btn-end').addEventListener('click', function () {
+        document.querySelectorAll('.btn, .predict__minus, .predict__plus').forEach(function (el) {
+            el.classList.toggle('_lock');
+        });
+    });
 
 })();

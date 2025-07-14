@@ -1,3 +1,12 @@
+button.menu-btn menu
+.menu-test
+    button.dark-btn dark
+    button.lng-btn en
+    button.auth-btn auth
+    button.btn-predictNum прогноз 1
+    button.btn-predictJud прогноз судді
+    button.btn-confirmed confirmed
+    button.btn-end end
 .fav-page.loading#champion-challenge-usyk
     .spinner-overlay
         .spinner
@@ -41,7 +50,7 @@
                             .predict__left-block
                                 button.predict__minus &#8203;
                                 .predict__number &#8203;
-                                .predict__judges.hide(data-translate="judgesDecision") &#8203;
+                                .predict__judges._opacity(data-translate="judgesDecision") &#8203;
                                 button.predict__plus &#8203;
                             a.welcome__btn.btn.unauth-msg(data-translate="signBtn" href="/login/" data-promo="champion_challenge_usyk_15072025" data-button="authorization_content") &#8203;
                             buttom.welcome__btn.btn.btn-join.hide(data-promo="champion_challenge_usyk_15072025" data-button="placeBet_content") #[span.btn-txt(data-translate="partBtn") &#8203;]
@@ -88,9 +97,9 @@
                         .table__row-item(data-translate="tableDate") &#8203;
                         .table__row-item(data-translate="tablePredict") &#8203;
                         .table__row-item(data-translate="tablePrize") &#8203;
+                .table__body#tableOther
                 .table__body
                     .table__body-scroll.unauth#table
-                .table__body#tableOther
             .bottom
                 .details
                     .details__txt(data-translate="bottomDetails") &#8203;
