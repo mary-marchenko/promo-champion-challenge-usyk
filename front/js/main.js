@@ -34,6 +34,7 @@
         scrollBtn = document.querySelector('.scroll-part-btn'),
         targetBlock = document.querySelector('.predict__content'),
         target = document.querySelector('.predict__content'),
+        welcomePrize = document.querySelector('.welcome__prize-center'),
         belt = document.querySelector('.predict__right-belt');
 
 
@@ -118,6 +119,7 @@
         function quickCheckAndRender() {
             checkUserAuth();
             renderUsers();
+            detectWindowsUser();
             checkAndLockPromo(currentDate, promoEndDate),
             placeBetBtn.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -128,6 +130,7 @@
 
                 placeBet(placeBetBtn);
             });
+
             // scroll to
             document.addEventListener("click", function () {
                 if (scrollBtn && targetBlock) {
@@ -159,6 +162,7 @@
             if (target) {
                 observer.observe(target);
             }
+
         }
 
         const waitForUserId = new Promise((resolve) => {
@@ -441,6 +445,18 @@
                         renderUsers()
                     }, 1000)
                 })
+    }
+
+    function detectWindowsUser() {
+        const userAg = navigator.userAgent;
+        const platform = navigator.platform;
+        const isWindows = userAg.includes("Windows") || platform.startsWith("Win");
+
+        if (isWindows) {
+            numberEl.classList.add("windUser");
+            welcomePrize.classList.add("windUser");
+            scoreDiv.classList.add("windUser");
+        }
     }
 
     // TEST
