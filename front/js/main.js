@@ -7,7 +7,7 @@
 
     function checkAndLockPromo(currentDate, promoEndDate) {
         if (currentDate >= promoEndDate) {
-            document.querySelectorAll('.btn, .predict__minus, .predict__plus').forEach(function (el) {
+            document.querySelectorAll('.scroll-part-btn, .play-btn, .btn-join, .predict__minus, .predict__plus').forEach(function (el) {
                 el.classList.add('_lock');
             });
         }
@@ -50,8 +50,7 @@
 
     let currentBet; 
     
-    // let locale = "uk"
-    let locale = sessionStorage.getItem("locale") || "uk"
+    let locale = "uk"
 
     if (ukLeng) locale = 'uk';
     if (enLeng) locale = 'en';
@@ -63,9 +62,7 @@
     let i18nData = {};
     const translateState = true;
 
-    // let userId = null;
-    let userId =  Number(sessionStorage.getItem("userId")) || null
-
+    let userId = null;
 
     const request = function (link, extraOptions) {
         return fetch(apiURL + link, {
@@ -454,60 +451,5 @@
             scoreDiv.classList.add("windUser");
         }
     }
-
-    // TEST
-    document.querySelector('.dark-btn').addEventListener('click', () => {
-        document.body.classList.toggle('dark');
-    });
-
-    const lngBtn = document.querySelector(".lng-btn")
-    const authBtn = document.querySelector(".auth-btn")
-
-    lngBtn.addEventListener("click", () => {
-        if (sessionStorage.getItem("locale")) {
-            sessionStorage.removeItem("locale");
-        } else {
-            sessionStorage.setItem("locale", "en");
-        }
-        window.location.reload();
-    });
-
-    authBtn.addEventListener("click", () =>{
-        if(userId){
-            sessionStorage.removeItem("userId")
-        }else{
-            sessionStorage.setItem("userId", "567567567")
-        }
-        window.location.reload()
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const button = document.querySelector('.btn-predictNum');
-
-        if (button && scoreDiv) {
-            button.addEventListener('click', function () {
-                scoreDiv.textContent = '1';
-            });
-        }
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
-
-        predictBtn.addEventListener('click', function () {
-            last.classList.toggle('hide');
-            judges.classList.toggle('hide');
-        });
-
-        confirmBtn.addEventListener('click', function () {
-            confirmed.classList.toggle('hide');
-            unconfirmed.classList.toggle('hide');
-        });
-    });
-
-    document.querySelector('.btn-end').addEventListener('click', function () {
-        document.querySelectorAll('.btn, .predict__minus, .predict__plus').forEach(function (el) {
-            el.classList.toggle('_lock');
-        });
-    });
 
 })();
