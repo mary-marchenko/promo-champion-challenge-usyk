@@ -132,16 +132,12 @@
             });
 
             // scroll to
-            document.addEventListener("click", function () {
-                if (scrollBtn && targetBlock) {
-                    scrollBtn.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        targetBlock.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'center'
-                        });
-                    });
-                }
+            scrollBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                targetBlock.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
             });
 
             // anim belt
